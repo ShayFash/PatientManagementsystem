@@ -15,8 +15,8 @@ def test_middle_names_set_names():
 
 def test_full_name_getters_setters():
 	fn = FullName()
-	fn.set_given_name("Robert")
+	fn.set_given_name("David")
 	fn.set_middle_names(["Lee", "Roy", "Jenkins"])
 	fn.set_surname("Baesmintdwaellor")
-	fn.set_preferred_name("Bob")
-	assert "Robert Lee Roy Jenkins Baesmintdwaellor" == fn.get_full_name_to_string()
+	fn.set_preferred_name("Dave")
+	assert "David Lee Roy Jenkins Baesmintdwaellor" == fn.get_full_name_to_string()
