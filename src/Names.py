@@ -84,7 +84,7 @@ class MiddleNames(Name):
 		:param name_list: a list of strings
 		:return:
 		"""
-		self.middleNames = name_list.split(' ')
+		self.middleNames = name_list
 
 
 class Surname(Name):
@@ -139,8 +139,8 @@ class FullName:
 
 		:return:
 		"""
-		return self.given.get_name() + self.middle.get_names_to_string() \
-			+ self.surname.get_name()
+		return self.given.get_name() + " " + self.middle.get_names_to_string() \
+			+ " " + self.surname.get_name()
 
 	def get_preferred_name(self):
 		"""
