@@ -78,11 +78,12 @@ class MiddleNames(Name):
 		"""
 		return ' '.join(self.middleNames)
 
-	"""
-	name_list : a list of strings
-	"""
-
 	def set_name(self, name_list):
+		"""
+
+		:param name_list: a list of strings
+		:return:
+		"""
 		self.middleNames = name_list.split(' ')
 
 
