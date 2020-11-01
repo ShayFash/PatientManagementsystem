@@ -9,12 +9,10 @@ Requirements to run:
 ```console
 npm install react-test-renderer
 ```
-<br>
 Originally, the React application was created running:
 ```console
 npx create-react-app react-snapshot-tests
 ```
-<br>
 To run the React application, run:
 ```console
 npm start
