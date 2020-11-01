@@ -1,0 +1,27 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`snapshot tests for a simple react program renders correctly where there are multiple items 1`] = `
+<ul>
+  <li>
+    one
+  </li>
+  <li>
+    two
+  </li>
+  <li>
+    three
+  </li>
+</ul>
+`;
+
+exports[`snapshot tests for a simple react program renders correctly where there are no items 1`] = `
+<span>
+  No items in list
+</span>
+`;
+
+exports[`snapshot tests for a simple react program renders correctly where there is a single item 1`] = `
+<span>
+  one
+</span>
+`;
