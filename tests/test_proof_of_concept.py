@@ -2,11 +2,6 @@ import pytest
 from Names import *
 
 
-# stub test
-def test_stub():
-    assert True
-
-
 def test_middle_names_set_names():
     mn = MiddleNames()
     mn.set_name(["Gary", "Kaye"])
