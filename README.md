@@ -26,5 +26,3 @@ In Pycharm:
    3. Run the file. If the file produces no output, check
       that the configuration is running pytest.
    
-From command line: 
-    ...
