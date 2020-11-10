@@ -151,6 +151,7 @@ class FullName:
         """
         :return: Surname as a string.
         """
+        return self.surname.get_name()
 
     def get_middle_name_list(self):
         """
