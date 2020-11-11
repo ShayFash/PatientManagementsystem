@@ -7,10 +7,12 @@ def test_middle_names_set_names():
     mn.set_name(["Gary", "Kaye"])
     assert ["Gary", "Kaye"] == mn.get_names_list()
 
+
 def test_given_name_getter_setter():
     gn = GivenName()
     gn.set_name(["Kenny"])
     assert ["Kenny"] == gn.get_name()
+
 
 def test_full_name_getters_setters():
     fn = FullName()
