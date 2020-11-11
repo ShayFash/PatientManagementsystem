@@ -6,3 +6,6 @@
 /.vs/PythonSettings.json
 /.vs/ProjectSettings.json
 /.vs/group3/v16/.suo
+/src/__pycache__
+/.idea
+/.vs

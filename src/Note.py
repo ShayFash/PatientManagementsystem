@@ -1,24 +1,28 @@
-import Names.Fullname as Name
+from Names import FullName as Name
 
-#W.I.P
-class Note:
+class Note():
 
     def __init__(self):
         """
+        Properties:
+            date: a list[]
+            body: str
+            author: Names.FullName object
         :return: Note object
         """
         self.date = []
         self.body = ''
-        self.author = new Name
+        self.author = Name()
 
     def write_date(self, day, month, year):
         """
         Assigns given date values to Note object
         :params: day, month, year
         """
-        self.Date[0] = Day
-        self.Date[1] = Month
-        self.Date[2] = Year
+        self.date.append(day)
+        self.date.append(month)
+        self.date.append(year)
+
 
     def write_body(self, body_text:str):
         """
@@ -27,7 +31,7 @@ class Note:
         """
         self.body = body_text
 
-    def write_author(self, author_name:Name):
+    def write_author(self, author_name):
         """
         Writes author's name to the Note object
         :param author_name: A FullName object
@@ -36,15 +40,19 @@ class Note:
 
     def get_date(self):
         """
-        :return: List[] containing Note object's date
+        :return: String representation of the Note's date
+        Day/Month/Year
         """
-        return self.date
+        date = (str(self.date[0]) + '/'         #Day
+                + str(self.date[1]) + '/'       #Month
+                + str(self.date[2]))            #Year
+        return date
 
     def get_author(self):
         """
         :return: FullName Object containing author's name
         """
-        return self.author #Consider other options as this returns a FullName Object
+        return self.author #Is a String representation of FullName more appropriate?
 
     def get_body(self):
         """
@@ -57,13 +65,22 @@ class Note:
         :return: String representation of the Note
         """
         #Print Date
-        print('Date: ' + self.date[0] + '/' #Day
-            + self.date[1] + '/'            #Month
-            + self.date[2] + '/n')          #Year
+        try:
+            date = ('Date: ' + str(self.date[0]) + '/'  #Day
+                + str(self.date[1]) + '/'               #Month
+                + str(self.date[2]) + '\n')             #Year
+        except: 
+            print("Error in displaying Date. Does date exist?")
         
         #Print Author's Name
-        print('Author: ' + author.get_full_name_to_string() + '/n')
+        try:
+            authors_name = 'Author: ' + self.author.get_full_name_to_string() + '\n'
+        except: 
+            print("Error in displaying Author's name. Does the author's name exist?")
 
         #Print Note Body
-        print(self.body)
-   
+        body = self.body
+
+        return date + authors_name + body
+
+  
