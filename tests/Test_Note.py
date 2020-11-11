@@ -12,7 +12,7 @@ class Test_Note(object):
         fn.set_surname("Baesmintdwaellor")
         fn.set_preferred_name("Dave")
         test_note.write_author(fn)
-        assert test_note.get_author().get_full_name_to_string() == 'David Lee Roy Jenkins Baesmintdwaellor'
+        assert test_note.get_author() == 'David Lee Roy Jenkins Baesmintdwaellor'
 
     def test_note_date():
         test_note = Note()
