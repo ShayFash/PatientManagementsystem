@@ -50,9 +50,9 @@ class Note():
 
     def get_author(self):
         """
-        :return: FullName Object containing author's name
+        :return: String representation of author's fullname
         """
-        return self.author #Is a String representation of FullName more appropriate?
+        return self.author.get_full_name_to_string() #Is a String representation of FullName more appropriate?
 
     def get_body(self):
         """
