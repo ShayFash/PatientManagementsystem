@@ -1,6 +1,6 @@
 import pytest
-from Demographics import *
-from Names import *
+from src.Demographics import *
+from src.Names import *
 
     # TODO: Allergies
 def test_demo_allergies():
