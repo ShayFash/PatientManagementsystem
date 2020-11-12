@@ -20,12 +20,19 @@ app = Flask(__name__)
 
 # == Post ==
 
-@app.route('/post/register_user/', methods=["POST"])
-def register_user():
+@app.route('/post/login_user/', methods=["POST"])
+def login_user():
     response = request.get_json()
     print_response_json(response)
-
-    queries.insertUser(conn, response)
+    
+    response_as_dict = convert_json_to_dict(response)
+    # user_profile = queries.getUserByUsername(conn, response_as_dict)
+    isPasswordValid = passwordHash.verifyPassword(user_profile["password"], json_as_dict["password"])
+    print(isPasswordValid)
+    
+    if (isPasswordValid):
+        return jsonify(user_profile["userID"])
+        return
 
     return jsonify("Received post/register_user")
 
@@ -33,7 +40,7 @@ def register_user():
 
 @app.route('/get/categories', methods=["GET"])
 def get_categories():
-    categories = queries.getCategoriesAsJsons(conn)
+    # categories = queries.getCategoriesAsJsons(conn)
 
     return categories
 
