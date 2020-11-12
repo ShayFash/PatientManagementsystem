@@ -130,4 +130,4 @@ class LabResult:
         """
         :return: A tuple containing first the text body of the result and then the images associated with the result.
         """
-        return (self.get_result, self.get_images)
+        return self.get_result, self.get_images
