@@ -5,13 +5,14 @@ class LabTest:
     """
     Contains data for a singular lab test.
     """
-    
+
     def __init__(self):
         """
         Default Constructor.
         Initializes result as an empty result.
         """
         self.result = LabResult()
+        self.request = None
 
     def make_request(self, request):
         """
@@ -84,14 +85,16 @@ class LabResult:
     """
     Container for a lab result associated with a lab test.
     """
-    
-    def __init__(self, result = "", images = []):
+
+    def __init__(self, result="", images=None):
         """
         Default Constructor.
         :param result: The text body of the result.
         :param images: A list of images associated with the result.
         """
-        
+
+        if images is None:
+            images = []
         self.result = result
         self.images = images
 
@@ -107,7 +110,7 @@ class LabResult:
         :return: Text body of the result.
         """
         return self.result
-    
+
     # TODO: Figure out how to store images on a server.
     def set_images(self, images):
         """
@@ -115,14 +118,14 @@ class LabResult:
         :param images: List of images.
         """
         self.images = images
-    
+
     # TODO: Figure out how to store images on a server.
     def get_images(self):
         """
         :return: List of images associated with the result.
         """
         return self.images
-    
+
     def get_results(self):
         """
         :return: A tuple containing first the text body of the result and then the images associated with the result.
