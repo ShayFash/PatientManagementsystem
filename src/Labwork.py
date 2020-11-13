@@ -52,7 +52,7 @@ class LabRequest:
     Container for a singular lab request form associated with a lab test.
     """
 
-    def __init__(self, sender, recipient, patient_ID, details):
+    def __init__(self, sender='', recipient='', patient_ID=0, details=''):
         """
         Default Constructor.
         :param sender: ID of medical professional.
@@ -72,7 +72,7 @@ class LabRequest:
         Sets the details line of the form (dates, type of request)
         :param details: Description of request (date, type of request)
         """
-        self.request.['details'] = details
+        self.request['details'] = details
 
     # TODO: Figure out how we're going to display it on the React side.
     def get_request(self):
