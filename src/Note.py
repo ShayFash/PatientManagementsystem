@@ -6,22 +6,24 @@ class Note():
         """
         Properties:
             date: a list[]
-            body: str
             author: Names.FullName object
+            body: str
         :return: Note object
         """
-        self.date = []
-        self.body = ''
-        self.author = Name()
+        self.note ={
+            'date': [],
+            'author': Name(),
+            'body': ''
+        }
 
     def write_date(self, day, month, year):
         """
         Assigns given date values to Note object
         :params: day, month, year
         """
-        self.date.append(day)
-        self.date.append(month)
-        self.date.append(year)
+        self.note['date'].append(day)
+        self.note['date'].append(month)
+        self.note['date'].append(year)
 
 
     def write_body(self, body_text:str):
@@ -29,58 +31,51 @@ class Note():
         Writes given body_text to Note object
         :param body_text: A string containing the note's body
         """
-        self.body = body_text
+        self.note['body'] = body_text
 
     def write_author(self, author_name):
         """
         Writes author's name to the Note object
         :param author_name: A FullName object
         """
-        self.author = author_name
+        self.note['author'] = author_name
 
     def get_date(self):
         """
         :return: String representation of the Note's date
         Day/Month/Year
         """
-        date = (str(self.date[0]) + '/'         #Day
-                + str(self.date[1]) + '/'       #Month
-                + str(self.date[2]))            #Year
+        try:
+            date = (str(self.note['date'][0]) + '/'         #Day
+                    + str(self.note['date'][1]) + '/'       #Month
+                    + str(self.note['date'][2]))            #Year
+        except:
+            print("Error in displaying Date. Does date exist?")
         return date
 
     def get_author(self):
         """
-        :return: String representation of author's fullname
+        :return: FullName Object containing author's name
         """
-        return self.author.get_full_name_to_string() #Is a String representation of FullName more appropriate?
+        return self.note['author'].get_full_name_to_string() 
 
     def get_body(self):
         """
         :return: str containing the Note's body
         """
-        return self.body
+        return self.note['body']
 
     def toString(self):
         """
         :return: String representation of the Note
         """
         #Print Date
-        try:
-            date = ('Date: ' + str(self.date[0]) + '/'  #Day
-                + str(self.date[1]) + '/'               #Month
-                + str(self.date[2]) + '\n')             #Year
-        except: 
-            print("Error in displaying Date. Does date exist?")
-        
+        date = self.get_date() + '\n'
+
         #Print Author's Name
-        try:
-            authors_name = 'Author: ' + self.author.get_full_name_to_string() + '\n'
-        except: 
-            print("Error in displaying Author's name. Does the author's name exist?")
+        authors_name = 'Author: ' + self.get_author() + '\n'
 
         #Print Note Body
-        body = self.body
+        body = self.get_body()
 
         return date + authors_name + body
-
-  
