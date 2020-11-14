@@ -9,7 +9,8 @@ from Allergies import *
 # from Demographics import *
 
 class PatientProfile:
-    def __init__(self, full_name, demographics, notes, billing_code, medications, allergies, lab_work):
+    def __init__(self, full_name: FullName, demographics: [], notes: [],
+                 billing_code: int, medications: [], allergies: [], lab_work: []):
         """
         Constructor for PatientProfile.
         :param full_name: A FullName object.
