@@ -14,7 +14,7 @@ def test_patient_profile_constructor():
 
 
 def test_patient_profile_get_name():
-    pp = PatientProfile(patient_name, [], [], 300, [], [], [])
+    pp = PatientProfile(patient_name, [], [], "300", [], [], [])
     assert "Gerald Mark Bob Alan" == pp.get_name().get_full_name_to_string()
 
 
@@ -23,8 +23,8 @@ def test_patient_profile_get_demographics():
 
 
 def test_patient_profile_get_billing():
-    pp = PatientProfile(patient_name, [], [], 300, [], [], [])
-    assert 300 == pp.get_billing()
+    pp = PatientProfile(patient_name, [], [], "300", [], [], [])
+    assert "300" == pp.get_billing()
 
 
 def test_patient_profile_get_notes():

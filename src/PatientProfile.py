@@ -10,13 +10,13 @@ from Allergies import *
 
 class PatientProfile:
     def __init__(self, full_name: FullName, demographics: [], notes: [],
-                 billing_code: int, medications: [], allergies: [], lab_work: []):
+                 billing_code: str, medications: [], allergies: [], lab_work: []):
         """
         Constructor for PatientProfile.
         :param full_name: A FullName object.
         :param demographics: A list of Demographic objects.
         :param notes: A list of Note objects.
-        :param billing_code: An integer.
+        :param billing_code: A string of numbers and/or characters.
         :param medications: A list of Medication objects.
         :param allergies: A list of Allergy objects
         :param lab_work: A list of LabWork objects.
