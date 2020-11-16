@@ -1,12 +1,15 @@
 import pytest
-from Names import *
 from PatientProfile import *
 
+# test parameters
 patient_name = FullName()
 patient_name.set_surname("Alan")
 patient_name.set_given_name("Gerald")
 patient_name.set_preferred_name("Jerry")
 patient_name.set_middle_names(["Mark", "Bob"])
+
+demographics = Demographics()
+
 
 
 def test_patient_profile_constructor():
