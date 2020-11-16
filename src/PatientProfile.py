@@ -2,14 +2,12 @@ from Names import *
 from Note import *
 from Labwork import *
 from Allergies import *
+from Medication import *
+from Demographics import *
 
-
-# TODO: import the classes that haven't been pushed to master yet.
-# from Medications import *
-# from Demographics import *
 
 class PatientProfile:
-    def __init__(self, full_name: FullName, demographics: [], notes: [],
+    def __init__(self, full_name, demographics: [], notes: [],
                  billing_code: str, medications: [], allergies: [], lab_work: []):
         """
         Constructor for PatientProfile.
