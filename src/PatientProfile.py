@@ -3,6 +3,7 @@ from Note import *
 from Labwork import *
 from Allergies import *
 from Medication import *
+from MedicationsList import *
 from Demographics import *
 
 

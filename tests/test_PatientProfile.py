@@ -9,15 +9,19 @@ patient_name.set_preferred_name("Jerry")
 patient_name.set_middle_names(["Mark", "Bob"])
 
 demographics = Demographics()
-
+notes = [Note(), Note()]
+medications = MedicationsList()
+allergies = AllergyList()
+lab_work = [LabTest(), LabTest()]
 
 
 def test_patient_profile_constructor():
-    pass
+    pp = PatientProfile(patient_name, demographics, notes, "300BA", medications, allergies, lab_work)
+    assert pp is not None
 
 
 def test_patient_profile_get_name():
-    pp = PatientProfile(patient_name, [], [], "300", [], [], [])
+    pp = PatientProfile(patient_name, demographics, notes, "300BA", medications, allergies, lab_work)
     assert "Gerald Mark Bob Alan" == pp.get_name().get_full_name_to_string()
 
 
