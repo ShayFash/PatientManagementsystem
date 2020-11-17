@@ -1,3 +1,5 @@
+from typing import List
+
 from Names import *
 from Note import *
 from Labwork import *
@@ -8,8 +10,8 @@ from Demographics import *
 
 
 class PatientProfile:
-    def __init__(self, full_name, demographics: [], notes: [],
-                 billing_code: str, medications: [], allergies: [], lab_work: []):
+    def __init__(self, full_name: FullName, demographics: Demographics, notes: List[Note],
+                 billing_code: str, medications: MedicationsList, allergies: AllergyList, lab_work: List[LabTest]):
         """
         Constructor for PatientProfile.
         :param full_name: A FullName object.
