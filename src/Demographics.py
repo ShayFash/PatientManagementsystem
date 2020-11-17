@@ -1,4 +1,4 @@
-from src.Names import *
+from Names import *
 from datetime import date
 
 class Demographics(object):
