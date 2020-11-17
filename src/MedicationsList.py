@@ -1,4 +1,4 @@
-from src.Medication import *
+from Medication import *
 
 class MedicationsList:
 

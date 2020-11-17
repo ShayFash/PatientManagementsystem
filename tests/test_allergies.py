@@ -1,5 +1,5 @@
 import pytest
-from src.Allergies import *
+from Allergies import *
 
 def test_allergy_name():
     allergy = Allergy("Peanut", "Anaphylactic shock")
