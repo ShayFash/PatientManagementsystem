@@ -1,14 +1,97 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './App';
 import reportWebVitals from './reportWebVitals';
+import {
+    BrowserRouter as Router,
+    Switch,
+    Route,
+    Link
+} from "react-router-dom";
+
+class HomeContainer extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {};
+    }
+
+    render(){
+        return (
+            <div className="homeContainer">
+                <p>Home</p>
+                <NavBar />
+                <Demographics />
+            </div>
+        );
+    }
+}
+
+class Demographics extends React.Component {
+    render() {
+        return (
+            <div className="demographics">
+                {/* I believe we're getting rid of
+                    height, weight and family physician */}
+                <p>Name:</p>
+                <p>Address:</p>
+                <p>DOB:</p>
+                <p>Allergies:</p>
+                <p>Family History:</p>
+                <p>Medical Condition:</p>
+                <p>Age:</p>
+                <p>Height:</p>
+                <p>Weight:</p>
+                <p>Medications</p>
+                <p>Family Physician</p>
+            </div>
+        );
+    }
+}
+
+class NavBar extends React.Component {
+    render() {
+        return (
+            <div className="navBar">
+                <Link>
+                    <button className="navBarButton" onClick={this.props.onClick}>
+                        New Note
+                    </button>
+                </Link>
+                <Link>
+                    <button className="navBarButton" onClick={this.props.onClick}>
+                        Requisition Forms
+                    </button>
+                </Link>
+                <Link>
+                    <button className="navBarButton" onClick={this.props.onClick}>
+                        MD Search
+                    </button>
+                </Link>
+                <Link>
+                    <button className="navBarButton" onClick={this.props.onClick}>
+                        Prescription
+                    </button>
+                </Link>
+            </div>
+        );
+    }
+}
+
+export default function App() {
+    return (
+        <Router>
+            <Switch>
+                <Route path="/" component={HomeContainer} />
+            </Switch>
+        </Router>
+    );
+}
 
 ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById('root')
+    <Router>
+        <App />
+    </Router>,
+    document.getElementById('root')
 );
 
 // If you want to start measuring performance in your app, pass a function

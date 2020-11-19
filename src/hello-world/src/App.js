@@ -1,14 +1,6 @@
 import logo from './logo.svg';
 import './App.css';
 
-function App() {
-  return (
-    <div className="App">
-        <p>
-          Hello Worlds!
-        </p>
-    </div>
-  );
-}
+// Don't use this.
 
 export default App;
