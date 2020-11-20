@@ -1,6 +1,7 @@
 # === Module Import Statements ===
 
 import json
+import PatientProfile, Demographics, Names, Note
 from flask import Flask, request, jsonify
 
 # === Other Class Import Statements ===
@@ -36,7 +37,49 @@ def login_user():
 
     return jsonify("Received post/register_user")
 
+#NOTE: The following four methods rely on DatabaseController in which
+#I am currently starting development on, does not exist in this branch/context - Sam
+
+@app.route('/post/set_billing', methods=['POST'])
+def set_billing(health_num, billing_code: str):
+    """
+    :param health_num: a patient's health number
+    :param billing_code: a String representing patient's billing code. 
+    """
+    DatabaseController.overwrite_billing(health_num, billing_code)
+
+@app.route('/post/append_note', methods=['POST'])
+def append_note(health_num, note: Note):
+    """
+    append a note to a patients profile in the database
+    :param health_num: the health number of the patient in question
+    :param note: a Note object to be inserted
+    """
+    json_note = json.dumps(note.note)
+    DatabaseController.insert_note(health_num, Json_note)
+
+@app.route('/post/create_patient', methods=['POST'])
+def create_patient_profile(health_num, full_name: FullName, demographics: Demographics):
+    """
+    create a patient profile and pass it on to the database
+    :param health_num: patient's health number
+    :param full_name: FullName object representing new patient's name
+    :param demographics: demographics object containing new patient's demographics
+    """
+    patient = PatientProfile(full_name, demographics)
+    DatabaseController.overwrite_patient(health_num, patient)
+
 # == Get ==
+
+@app.route('/get/patient', methods=['GET'])
+def get_patient(health_num):
+    """
+    retrieve a patient object from the database given their health number
+    :param health_num: patient's health number
+    :return: PatientProfile object
+    """
+    return DatabaseController.Get_Patient(health_num)
+    
 
 @app.route('/get/categories', methods=["GET"])
 def get_categories():
