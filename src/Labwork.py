@@ -37,14 +37,14 @@ class LabTest:
         :param result: A string representing the text results of the test (i.e. bloodwork did not contain marijuana)
         :param images: A list containing some sort of representation of our images.
         """
-        self.test['request'].set_result(result)
-        self.test['request'].set_images(images)
+        self.test['result'].set_result(result)
+        self.test['result'].set_images(images)
 
     def get_results(self):
         """
         :return: Tuple of text results, list of images.
         """
-        return self.test['request'].get_results()
+        return self.test['result'].get_results()
 
 
 class LabRequest:
@@ -138,4 +138,4 @@ class LabResult:
         """
         :return: A tuple containing first the text body of the result and then the images associated with the result.
         """
-        return self.get_result, self.get_images
+        return self.get_result(), self.get_images()
