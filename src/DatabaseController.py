@@ -101,28 +101,33 @@ class DatabaseController():
 
     def set_medications(health_num, medication_list: MedicationList):
         """
-        Writes the provided medication list into the database for the patient.
+        Writes/Replaces the provided medication list into the database for the patient.
         :param health_num: a 9-digit integer health number corresponding to patient 
         param medication_list: a MedicationList object
         """
-        #Medication contains two fields, scientfic_name : str, and market_names[]
-        #can this be packaged into a stringified json, stored and later be reconstructed?
-        #that, or extra columns in MedicationEntry could be made and be iterated into
 
-        #An implementation: Table per patient?
+        #Remove existing medication values from table
+        #Idk how to do that lol 'DELETE FROM MedicationEntry health_num' or something
+
+        #Then replace with the updated List
         for drug in medication_list:
             #insert health_num drug table value drug.scientific_name into column scientific_name
             for name in drug.market_names:
                 #insert str(name + ', ') into market names
                 pass
-    
+        
     def set_allergies(health_num, allergies: Allergies):
         """
-        Writes the allergies object into the database for the specified patient
+        Writes/Replaces the allergies list into the database for the specified patient
         :param health_num: a 9-digit integer health number corresponding to patient
         :param allergies: an Allergies object already containing allergy information
         """
-        pass
+        #Remove existing Allergy values from table
+
+        #Replace with updated Allergy list
+        for allergy in allergies.allergylist['allergies']:
+            #insert allergy 
+            pass
 
     def set_lab_work(health_num, lab_work: Labwork):
         """
