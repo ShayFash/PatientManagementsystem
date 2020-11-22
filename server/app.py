@@ -55,8 +55,7 @@ def append_note(health_num, note: Note):
     :param health_num: the health number of the patient in question
     :param note: a Note object to be inserted
     """
-    json_note = json.dumps(note.note)
-    DatabaseController.insert_note(health_num, Json_note)
+    DatabaseController.insert_note(health_num, note)
 
 @app.route('/post/create_patient', methods=['POST'])
 def create_patient_profile(health_num, full_name: FullName, demographics: Demographics):
@@ -78,7 +77,7 @@ def get_patient(health_num):
     :param health_num: patient's health number
     :return: PatientProfile object
     """
-    return DatabaseController.Get_Patient(health_num)
+    return DatabaseController.get_patient(health_num)
     
 
 @app.route('/get/categories', methods=["GET"])
