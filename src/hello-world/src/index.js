@@ -18,7 +18,10 @@ class HomeContainer extends React.Component {
     render(){
         return (
             <div className="homeContainer">
-                <p>Home</p>
+                <p>Hello, Dr. X</p>
+                <button className="logoutButton" onClick={this.props.onClick}>
+                    Logout
+                </button>
                 <NavBar />
                 <Demographics />
             </div>
@@ -41,8 +44,8 @@ class Demographics extends React.Component {
                 <p>Age:</p>
                 <p>Height:</p>
                 <p>Weight:</p>
-                <p>Medications</p>
-                <p>Family Physician</p>
+                <p>Medications:</p>
+                <p>Family Physician:</p>
             </div>
         );
     }
@@ -77,11 +80,16 @@ class NavBar extends React.Component {
     }
 }
 
+class Logout extends React.Component {
+
+}
+
 export default function App() {
     return (
         <Router>
             <Switch>
                 <Route path="/" component={HomeContainer} />
+                <Route path="/logout" component={Logout} />
             </Switch>
         </Router>
     );
