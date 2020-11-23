@@ -37,12 +37,50 @@ def login_user():
 
     return jsonify("Received post/register_user")
 
-#NOTE: The following four methods rely on DatabaseController in which
-#I am currently starting development on, does not exist in this branch/context - Sam
+#NOTE: The following patient specific methods rely on DatabaseController in which
+#I am currently developing, does not exist in this context - Sam
+
+@app.route('/post/set_medications', methods=['POST'])
+def set_medications(health_num, medication_list: MedicationList):
+    """
+    Writes/Replaces the provided medication list into the database for the patient.
+    :param health_num: a 9-digit integer health number corresponding to patient 
+    param medication_list: a MedicationList object
+    """
+    DatabaseController.set_medication(health_num, medication_list)
+
+@app.route('/post/set_demographics', methods=['POST'])
+def set_demographics(health_num, demographics: Demographics):
+    """
+    Writes the information from the provided Demographics object into the database
+    for the given health_num
+    :param health_num: a 9-digit integer health number corresponding to patient 
+    :param demographics: a Demographics object containing patient information
+    """
+    DatabaseController.set_demographics(health_num, demographics)
+
+@app.route('/post/set_allergies', methods=['POST'])
+def set_allergies(health_num, allergies: Allergies):
+    """
+    Writes/Replaces the allergies list into the database for the specified patient
+    :param health_num: a 9-digit integer health number corresponding to patient
+    :param allergies: an Allergies object already containing allergy information
+    """
+    DatabaseController.set_allergies(health_num, allergies)
+
+@app.route('/post/set_lab_work', methods=['POST'])
+def set_lab_work(health_num, lab_work: Labwork):
+    """
+    Writes the provided Lab work data into the database for the patient
+    :param health_num: a 9-digit integer health number corresponding to patient 
+    :param lab_work: a LabWork object containing the lab work data in question
+    """
+    DatabaseController.set_lab_work(health_num, lab_work)
 
 @app.route('/post/set_billing', methods=['POST'])
 def set_billing(health_num, billing_code: str):
     """
+    Writes the billing information into the database for the given patient
     :param health_num: a patient's health number
     :param billing_code: a String representing patient's billing code. 
     """
