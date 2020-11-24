@@ -1,45 +1,3 @@
-class AllergyList(object):
-    """
-    List of allergies of a patient.
-    """
-
-    def __init__(self):
-        """
-
-        """
-        self.allergy_list = {
-            'allergies': []
-        }
-
-    def get_allergies(self):
-        """
-        :return: the list of allergies.
-        """
-        return self.allergy_list['allergies']
-
-    def get_allergies_to_string(self):
-        """
-        :return: the list of allergies as a string.
-        """
-        return ", ".join([str(allergy) for allergy in self.allergy_list['allergies']])
-
-    def add_allergy(self, new_allergy):
-        """
-        Adds a new allergy to the list of allergies
-        :param new_allergy: must be of type Allergy.
-        """
-        if new_allergy not in self.allergy_list['allergies']:
-            self.allergy_list['allergies'].append(new_allergy)
-
-    def removeAllergy(self, allergy):
-        """
-        Removes an allergy from the list of allergies.
-        :param allergy: must be of type Allergy.
-        """
-        if allergy in self.allergy_list['allergies']:
-            self.allergy_list['allergies'].remove(allergy)
-
-
 class Allergy(object):
     """
     Class representation of a patient allergy.
@@ -57,19 +15,19 @@ class Allergy(object):
             'medical name': medical_name
         }
 
-    def getItem(self):
+    def get_item(self):
         """
         :return: the item/allergy string name.
         """
         return self.allergy['item']
 
-    def getSeverityDescription(self):
+    def get_severity_description(self):
         """
         :return: the allergy severity description string.
         """
         return self.allergy['severity description']
 
-    def getMedicalName(self):
+    def get_medical_name(self):
         """
         :pre-conditions: allergy must have a medical name.
         :return: scientific string name of the medicine allergy.
