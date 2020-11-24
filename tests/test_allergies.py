@@ -1,5 +1,5 @@
 import pytest
-from Allergies import *
+from src.Allergies import *
 
 def test_allergy_name():
     allergy = Allergy("Peanut", "Anaphylactic shock")
@@ -15,13 +15,13 @@ def test_allergy_equivalence():
     assert allergy == allergy2
 
 def test_medical_allergy_scientific_name():
-    medical_allergy = MedicineAllergy("Something", "Bad Effect", "Medical Something")
+    medical_allergy = Allergy("Something", "Bad Effect", "Medical Something")
     assert medical_allergy.getScientificName() == "Medical Something"
 
 def test_allergy_list_to_string():
     allergyList = AllergyList()
     allergy = Allergy("Peanut", "Anaphylactic shock")
-    medical_allergy = MedicineAllergy("Something", "Bad Effect", "Medical Something")
+    medical_allergy = Allergy("Something", "Bad Effect", "Medical Something")
     allergyList.addAllergy(allergy)
     allergyList.addAllergy(medical_allergy)
     assert allergyList.getAllergiesToString() == "Peanut, Something"
@@ -45,8 +45,14 @@ def test_add_duplicate_allergies():
 def test_remove_unique_allergy():
     allergyList = AllergyList()
     allergy = Allergy("Peanut", "Anaphylactic shock")
-    medical_allergy = MedicineAllergy("Something", "Bad Effect", "Medical Something")
+    medical_allergy = Allergy("Something", "Bad Effect", "Medical Something")
     allergyList.addAllergy(allergy)
     allergyList.addAllergy(medical_allergy)
     allergyList.removeAllergy(allergy)
     assert allergyList.getAllergiesToString() == "Something"
+
+def test_get_unset_medical_name():
+    allergy = Allergy("Peanut", "Anaphylactic shock")
+    # uses a pytest method to test if an assert is being called properly
+    with pytest.raises(Exception):
+        allergy.getScientificName()
