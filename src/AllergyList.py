@@ -1,4 +1,4 @@
-from src.Allergy import *
+from Allergy import *
 
 class AllergyList(object):
     """
