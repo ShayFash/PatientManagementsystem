@@ -7,37 +7,37 @@ class AllergyList(object):
         """
 
         """
-        self.allergyList = {
+        self.allergy_list = {
             'allergies': []
         }
 
-    def getAllergies(self):
+    def get_allergies(self):
         """
         :return: the list of allergies.
         """
-        return self.allergyList['allergies']
+        return self.allergy_list['allergies']
 
-    def getAllergiesToString(self):
+    def get_allergies_to_string(self):
         """
         :return: the list of allergies as a string.
         """
-        return ", ".join([str(allergy) for allergy in self.allergyList['allergies']])
+        return ", ".join([str(allergy) for allergy in self.allergy_list['allergies']])
 
-    def addAllergy(self, newAllergy):
+    def add_allergy(self, new_allergy):
         """
         Adds a new allergy to the list of allergies
-        :param newAllergy: must be of type Allergy.
+        :param new_allergy: must be of type Allergy.
         """
-        if newAllergy not in self.allergyList['allergies']:
-            self.allergyList['allergies'].append(newAllergy)
+        if new_allergy not in self.allergy_list['allergies']:
+            self.allergy_list['allergies'].append(new_allergy)
 
     def removeAllergy(self, allergy):
         """
         Removes an allergy from the list of allergies.
         :param allergy: must be of type Allergy.
         """
-        if allergy in self.allergyList['allergies']:
-            self.allergyList['allergies'].remove(allergy)
+        if allergy in self.allergy_list['allergies']:
+            self.allergy_list['allergies'].remove(allergy)
 
 
 class Allergy(object):
@@ -45,15 +45,16 @@ class Allergy(object):
     Class representation of a patient allergy.
     """
 
-    def __init__(self, name, severity, scientificName=None):
+    def __init__(self, name, severity, medical_name=None):
         """
         :param name: string name of the item/allergy.
         :param severity: string description of the severity of the allergy.
+        :param scientific_name: a string medical name of the
         """
         self.allergy = {
             'item': name,
-            'severityDescription': severity,
-            'medicalName': scientificName
+            'severity description': severity,
+            'medical name': medical_name
         }
 
     def getItem(self):
@@ -66,15 +67,15 @@ class Allergy(object):
         """
         :return: the allergy severity description string.
         """
-        return self.allergy['severityDescription']
+        return self.allergy['severity description']
 
-    def getScientificName(self):
+    def getMedicalName(self):
         """
         :pre-conditions: allergy must have a medical name.
         :return: scientific string name of the medicine allergy.
         """
-        assert(self.allergy['medicalName'] is not None)
-        return self.allergy['medicalName']
+        assert(self.allergy['medical name'] is not None)
+        return self.allergy['medical name']
 
     def __eq__(self, other):
         """
