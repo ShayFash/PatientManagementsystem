@@ -6,7 +6,7 @@ class Medication:
     def get_scientific_name(self):
         """
         Return all scientific names of a drug
-        :return: list of scientifc drugs
+        :return: list of scientific drugs
         """
         return self.scientific_name
 
@@ -25,11 +25,11 @@ class Medication:
         """
         self.scientific_name = name
 
-    def set_market_names(self, market_name):
+    def set_market_names(self, market_names):
         """
-        :param  market_name: Markets of medicine
+        :param  market_name: Market names of medicine
         :return: None
         """
-        self.market_names = market_name
+        self.market_names = market_names
 
 
