@@ -58,3 +58,14 @@ code {
     background-color: rgb(221, 170, 39);
     cursor: pointer;
   }
+
+/* Login Screen */
+.loginBox {
+    /* textteAlign: "center", marginTop: "20%", backgroundColor: "white", margin: "300px"} */
+    text-align: center;
+    margin-top: 20%;
+    background-color: white;
+    margin-left: 30%;
+    margin-right: 30%;
+    height: 200px;
+}

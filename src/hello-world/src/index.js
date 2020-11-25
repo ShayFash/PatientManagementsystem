@@ -8,6 +8,8 @@ import {
     Route,
     Link
 } from "react-router-dom";
+import NewNote from './NewNote';
+import Login from './Login';
 
 class HomeContainer extends React.Component {
     constructor(props) {
@@ -19,9 +21,11 @@ class HomeContainer extends React.Component {
         return (
             <div className="homeContainer">
                 <p>Hello, Dr. X</p>
-                <button className="logoutButton" onClick={this.props.onClick}>
-                    Logout
-                </button>
+                <Link to='/login'>
+                    <button className="logoutButton" onClick={this.props.onClick}>
+                        Logout
+                    </button>
+                </Link>
                 <NavBar />
                 <Demographics />
             </div>
@@ -55,7 +59,7 @@ class NavBar extends React.Component {
     render() {
         return (
             <div className="navBar">
-                <Link>
+                <Link to="/newnote">
                     <button className="navBarButton" onClick={this.props.onClick}>
                         New Note
                     </button>
@@ -81,15 +85,21 @@ class NavBar extends React.Component {
 }
 
 class Logout extends React.Component {
-
+    render() {
+        /* Temporary obviously */
+        return <h1>Logged Out!</h1>
+    }
 }
 
 export default function App() {
     return (
         <Router>
             <Switch>
-                <Route path="/" component={HomeContainer} />
-                <Route path="/logout" component={Logout} />
+                {/* <Route path="/" exact component={Login} /> */}
+                <Route path="/" exact component={HomeContainer} />
+                {/* <Route path="/logout" component={Logout} /> */}
+                <Route path="/newnote" component={NewNote} />
+                <Route path="/login" component={Login}></Route>
             </Switch>
         </Router>
     );
