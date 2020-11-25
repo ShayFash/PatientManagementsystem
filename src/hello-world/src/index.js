@@ -8,8 +8,8 @@ import {
     Route,
     Link
 } from "react-router-dom";
-import NewNote from './NewNote';
-import Login from './Login';
+import NewNote from './components/NewNote';
+import Login from './components/Login';
 
 class HomeContainer extends React.Component {
     constructor(props) {
@@ -84,12 +84,12 @@ class NavBar extends React.Component {
     }
 }
 
-class Logout extends React.Component {
-    render() {
-        /* Temporary obviously */
-        return <h1>Logged Out!</h1>
-    }
-}
+// class Logout extends React.Component {
+//     render() {
+//         /* Temporary obviously */
+//         return <h1>Logged Out!</h1>
+//     }
+// }
 
 export default function App() {
     return (
