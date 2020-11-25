@@ -27,7 +27,7 @@ class Medication:
 
     def set_market_names(self, market_names):
         """
-        :param  market_name: Markets of medicine
+        :param  market_name: Market names of medicine
         :return: None
         """
         self.market_names = market_names
