@@ -60,21 +60,21 @@ class Demographics(object):
         set patient's date of birth
         :param: birthdate
         """
-        self.demographics['date of birth'] = birthdate
+        self.demographics['dateOfBirth'] = birthdate
    
     def set_family_history(self, family_history):
         """
         set family history
         :param: str containing patient's history
         """
-        self.demographics['family history'] = family_history
+        self.demographics['familyHistory'] = family_history
 
     def set_medical_conditions(self, conditions:str):
         """
         Set patient's medical conditions
         :params: str representation of patient medical conditions
         """
-        self.demographics['medical conditions'] = conditions
+        self.demographics['medicalConditions'] = conditions
    
     def get_name(self):
         """
@@ -95,21 +95,21 @@ class Demographics(object):
         Get patient date of birth
         :return: str representation of patient's date of birth
         """
-        return self.demographics['date of birth']
+        return self.demographics['dateOfBirth']
     
     def get_family_history(self):
         """
         Get patient's family history
         :return: str representation of family history
         """
-        return self.demographics['family history']
+        return self.demographics['familyHistory']
     
     def get_medical_conditions(self):
         """
         Get patient's medical conditions
         :return: str representation of patient medical conditions
         """
-        return self.demographics['medical conditions']
+        return self.demographics['medicalConditions']
        
     
 
