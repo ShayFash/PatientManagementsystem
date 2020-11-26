@@ -13,7 +13,7 @@ class DatabaseController():
         db = None
         try:
             db = sqlite3.connect('./db/db_medical.db')
-        except error as e:
+        except Exception as e:
             print(e)
         return db
 
@@ -70,12 +70,12 @@ class DatabaseController():
             cur.execute('INSERT INTO Patient (patientID, name) VALUES(?, ?)', 
                         (health_num, fullname.get_full_name_to_string()))
             db.commit()
-        except error as e:
+        except Exception as e:
             print(e)
         db.close()
         
 
-    def set_demographics(self, health_num, demographics: Demographics):
+    def set_demographics(self, health_num, demographics: Demographics.Demographics):
         """
         Writes the information from the provided Demographics object into the database
         for the given health_num
@@ -85,9 +85,14 @@ class DatabaseController():
         db = self.create_connection()
         cur = db.cursor()
         for key, item in demographics.demographics.items():
-            #insert/replace items into demo's table w/ id:health_num
-            pass
-        pass
+            #insert/replace demographic items into patient's table w/ id:health_num
+            try:
+                cur.execute("INSERT OR REPLACE INTO Patient ("+key+", 'patientID') VALUES(?, ?)", (item, health_num)) 
+                db.commit()
+            except Exception as e:
+                print(e)
+        db.close()
+            
 
     def insert_note(self, health_num, note: Note):
         """
@@ -156,7 +161,11 @@ class DatabaseController():
         cur = db.cursor()
 
         
-data_controller = DatabaseController()   
-data_controller.set_name(34234, "Sam")
+data_controller = DatabaseController() 
+demo = Demographics.Demographics()
+demo.set_address('main st')
+#demo.set_date_of_birth('Aug 7 1997')
+data_controller.set_demographics(111, demo)
+#data_controller.set_name(34234, "Sam")
 
 
