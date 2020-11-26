@@ -1,10 +1,10 @@
 from PatientProfile import *
-import Allergies, Demographics, Labwork, Medication, Names, Note
+import Allergies, Demographics, Labwork, Medication, MedicationsList, Names, Note
 import sqlite3
 
 class DatabaseController():
 
-    def create_connection(self, db_file):
+    def create_connection(self):
         """ 
         creates a database connection to the SQLite database
         :param db_file: database file
@@ -12,7 +12,7 @@ class DatabaseController():
         """
         db = None
         try:
-            db = sqlite3.connect(db_file)
+            db = sqlite3.connect('./db/db_medical.db')
         except error as e:
             print(e)
         return db
@@ -64,8 +64,16 @@ class DatabaseController():
         :param health_num: a 9-digit integer health number corresponding to patient 
         :param FullName: a FullName object containing the patient's name
         """
-        #insert fullname.given, .middle, .surname, .preferred if they exist w/ id:health_num
-        pass
+        db = self.create_connection()
+        cur = db.cursor()
+        try:
+            cur.execute('INSERT INTO Patient (patientID, name) VALUES(?, ?)', 
+                        (health_num, fullname.get_full_name_to_string()))
+            db.commit()
+        except error as e:
+            print(e)
+        db.close()
+        
 
     def set_demographics(self, health_num, demographics: Demographics):
         """
@@ -74,6 +82,8 @@ class DatabaseController():
         :param health_num: a 9-digit integer health number corresponding to patient 
         :param demographics: a Demographics object containing patient information
         """
+        db = self.create_connection()
+        cur = db.cursor()
         for key, item in demographics.demographics.items():
             #insert/replace items into demo's table w/ id:health_num
             pass
@@ -85,10 +95,12 @@ class DatabaseController():
         :param health_num: a 9-digit integer health number corresponding to patient 
         :param note: a Note object containing note information
         """
+        db = self.create_connection()
+        cur = db.cursor()
         for key, item in note.note.items():
             #insert items into notes table alongside id:health_num
             pass
-        pass
+
 
     def set_billing(self, health_num, billing_code):
         """
@@ -96,20 +108,24 @@ class DatabaseController():
         :param health_num: a 9-digit integer health number corresponding to patient 
         :param billing_code: a str representing patient billing code
         """
-        #SQL query to billing_code table with health_num key
-        pass
+        db = self.create_connection()
+        cur = db.cursor()
+        #SQL query to billing_code table with health_num key blabla
 
-    def set_medications(self, health_num, medication_list: MedicationList):
+
+    def set_medications(self, health_num, medication_list: MedicationsList):
         """
         Writes/Replaces the provided medication list into the database for the patient.
         :param health_num: a 9-digit integer health number corresponding to patient 
-        param medication_list: a MedicationList object
+        param medication_list: a MedicationsList object
         """
 
         #Remove existing medication values from table
         #Idk how to do that lol 'DELETE FROM MedicationEntry health_num' or something
 
         #Then replace with the updated List
+        db = self.create_connection()
+        cur = db.cursor()
         for drug in medication_list:
             #insert health_num drug table value drug.scientific_name into column scientific_name
             for name in drug.market_names:
@@ -123,7 +139,8 @@ class DatabaseController():
         :param allergies: an Allergies object already containing allergy information
         """
         #Remove existing Allergy values from table
-
+        db = self.create_connection()
+        cur = db.cursor()
         #Replace with updated Allergy list
         for allergy in allergies.allergylist['allergies']:
             #insert allergy 
@@ -135,10 +152,11 @@ class DatabaseController():
         :param health_num: a 9-digit integer health number corresponding to patient 
         :param lab_work: a LabWork object containing the lab work data in question
         """
-        pass
-        
-    
-        
+        db = self.create_connection()
+        cur = db.cursor()
 
+        
+data_controller = DatabaseController()   
+data_controller.set_name(34234, "Sam")
 
 
