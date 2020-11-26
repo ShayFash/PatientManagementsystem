@@ -1,9 +1,10 @@
-import src.PatientProfile as PatientProfile
+from PatientProfile import *
+import Allergies, Demographics, Labwork, Medication, Names, Note
 import sqlite3
 
 class DatabaseController():
 
-    def create_connection(db_file):
+    def create_connection(self, db_file):
         """ 
         creates a database connection to the SQLite database
         :param db_file: database file
@@ -12,11 +13,11 @@ class DatabaseController():
         db = None
         try:
             db = sqlite3.connect(db_file)
-        except Error as e:
+        except error as e:
             print(e)
         return db
 
-    def get_patient(health_num):
+    def get_patient(self, health_num):
         """
         Queries all the patient data from the database and compiles it into
         a patient object which is returned to the caller
@@ -35,7 +36,7 @@ class DatabaseController():
         patient_profile = PatientProfile(**patient_dict)
         return patient_profile
 
-    def overwrite_patient(health_num, patient: PatientProfile):
+    def overwrite_patient(self, health_num, patient: PatientProfile):
         """
         Overwrites all the fields of a patient profile in the database or 
         creates one if it doesn't exist
@@ -55,9 +56,8 @@ class DatabaseController():
             set_allergies(health_num, patient.profile['allergies'])
         if patient.profile['lab_work'] != None:
             set_lab_work(health_num, patient.profile['lab_work'])
-        pass
-
-    def set_name(health_num, fullname: FullName):
+    
+    def set_name(self, health_num, fullname: FullName):
         """
         Writes the provided FullName objects information into the database for the
         given health_num
@@ -67,7 +67,7 @@ class DatabaseController():
         #insert fullname.given, .middle, .surname, .preferred if they exist w/ id:health_num
         pass
 
-    def set_demographics(health_num, demographics: Demographics):
+    def set_demographics(self, health_num, demographics: Demographics):
         """
         Writes the information from the provided Demographics object into the database
         for the given health_num
@@ -79,7 +79,7 @@ class DatabaseController():
             pass
         pass
 
-    def insert_note(health_num, note: Note):
+    def insert_note(self, health_num, note: Note):
         """
         Inserts a note into the database for the specified patient
         :param health_num: a 9-digit integer health number corresponding to patient 
@@ -90,7 +90,7 @@ class DatabaseController():
             pass
         pass
 
-    def set_billing(health_num, billing_code):
+    def set_billing(self, health_num, billing_code):
         """
         Writes the billing information into the database for the given patient
         :param health_num: a 9-digit integer health number corresponding to patient 
@@ -99,7 +99,7 @@ class DatabaseController():
         #SQL query to billing_code table with health_num key
         pass
 
-    def set_medications(health_num, medication_list: MedicationList):
+    def set_medications(self, health_num, medication_list: MedicationList):
         """
         Writes/Replaces the provided medication list into the database for the patient.
         :param health_num: a 9-digit integer health number corresponding to patient 
@@ -116,7 +116,7 @@ class DatabaseController():
                 #insert str(name + ', ') into market names
                 pass
         
-    def set_allergies(health_num, allergies: Allergies):
+    def set_allergies(self, health_num, allergies: Allergies):
         """
         Writes/Replaces the allergies list into the database for the specified patient
         :param health_num: a 9-digit integer health number corresponding to patient
@@ -129,7 +129,7 @@ class DatabaseController():
             #insert allergy 
             pass
 
-    def set_lab_work(health_num, lab_work: Labwork):
+    def set_lab_work(self, health_num, lab_work: Labwork):
         """
         Writes the provided Lab work data into the database for the patient
         :param health_num: a 9-digit integer health number corresponding to patient 
@@ -137,5 +137,8 @@ class DatabaseController():
         """
         pass
         
+    
+        
+
 
 

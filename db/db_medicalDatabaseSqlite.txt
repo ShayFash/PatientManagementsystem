@@ -119,8 +119,8 @@ CREATE TABLE IF NOT EXISTS Patient (
 
 CREATE TABLE IF NOT EXISTS MedicationEntry (
     medicationEntryID INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
-    icd10 TEXT NOT NULL,
     patientID INTEGER NOT NULL,
+    icd10 TEXT NOT NULL,
     
     FOREIGN KEY (patientID) REFERENCES Patient(patientID)
 );
