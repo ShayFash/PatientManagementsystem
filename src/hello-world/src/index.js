@@ -10,6 +10,8 @@ import {
 } from "react-router-dom";
 import NewNote from './components/NewNote';
 import Login from './components/Login';
+import MDSearch from './components/MDSearch';
+import NavBar from './components/NavBar';
 
 class HomeContainer extends React.Component {
     constructor(props) {
@@ -20,12 +22,7 @@ class HomeContainer extends React.Component {
     render(){
         return (
             <div className="homeContainer">
-                <p>Hello, Dr. X</p>
-                <Link to='/login'>
-                    <button className="logoutButton" onClick={this.props.onClick}>
-                        Logout
-                    </button>
-                </Link>
+                <h1>Hello, Dr. X</h1>
                 <NavBar />
                 <Demographics />
             </div>
@@ -55,35 +52,6 @@ class Demographics extends React.Component {
     }
 }
 
-class NavBar extends React.Component {
-    render() {
-        return (
-            <div className="navBar">
-                <Link to="/newnote">
-                    <button className="navBarButton" onClick={this.props.onClick}>
-                        New Note
-                    </button>
-                </Link>
-                <Link>
-                    <button className="navBarButton" onClick={this.props.onClick}>
-                        Requisition Forms
-                    </button>
-                </Link>
-                <Link>
-                    <button className="navBarButton" onClick={this.props.onClick}>
-                        MD Search
-                    </button>
-                </Link>
-                <Link>
-                    <button className="navBarButton" onClick={this.props.onClick}>
-                        Prescription
-                    </button>
-                </Link>
-            </div>
-        );
-    }
-}
-
 // class Logout extends React.Component {
 //     render() {
 //         /* Temporary obviously */
@@ -100,6 +68,7 @@ export default function App() {
                 {/* <Route path="/logout" component={Logout} /> */}
                 <Route path="/newnote" component={NewNote} />
                 <Route path="/login" component={Login}></Route>
+                <Route path="/MDsearch" component={MDSearch}></Route>
             </Switch>
         </Router>
     );

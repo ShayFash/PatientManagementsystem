@@ -19,11 +19,12 @@ function LoginPanel(props) {
                 <form>
                     <input type="text" placeholder="Username" style={{fontSize: "32px"}}></input>
                     <br />
-                    <input type="password" placeholder="Password" style={{fontSize: "32px"}}></input>
+                    <input type="pa" placeholder="Password" style={{fontSize: "32px"}}></input>
                 </form>
             </div>
             <div style={{textAlign: "center"}}>
-                <button className="navBarButton" style={{marginRight: "100px"}}>Forgotten Password?</button>
+                <button className="navBarButton">Forgotten Password?</button>
+                <div className="horizontalDivider"/>
                 <Link to="/">
                     <button className="navBarButton">Login</button>
                 </Link>

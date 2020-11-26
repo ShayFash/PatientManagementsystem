@@ -18,9 +18,10 @@ function NewNote(props) {
     return (
         <div>
             <form className="homeContainer" style={{padding: "50px"}}>
-                <span style={{marginRight: "700px", fontSize: "24px", fontWeight: "bold", fontStyle: "italic"}}>
+                <span style={{fontSize: "24px", fontWeight: "bold", fontStyle: "italic"}}>
                     New Note:
                 </span>
+                <div className="horizontalDivider" style={{width: "700px"}}/>
                 <Link to="/">
                     <button className="navBarButton">Back</button>
                 </Link>
@@ -32,16 +33,17 @@ function NewNote(props) {
                 </textarea>
                 <br />
                 <input type="text" placeholder="Diagnosis" value={diagnosisText} onChange={changeDiagnosis}
-                style={{width:"450px", fontSize: "16px", marginRight: "450px"}}
+                style={{width:"450px", fontSize: "16px"}}
                 >
                 </input>
+                <div className="horizontalDivider" style={{width: "450px"}}/>
                 <br/>
                 <Link to="/">
                     <button className="navBarButton"
-                    style={{marginRight: "850px", marginTop: "20px"}} 
+                    style={{marginTop: "5px"}} 
                     >Post</button>
                 </Link>
-                
+                <div className="horizontalDivider" style={{width: "830px"}}/>
             </form>
         </div>
     )
