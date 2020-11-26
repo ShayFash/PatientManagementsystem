@@ -3,7 +3,8 @@ from typing import List
 from Names import *
 from Note import *
 from Labwork import *
-from Allergies import *
+from Allergy import *
+from AllergyList import *
 from Medication import *
 from MedicationsList import *
 from Demographics import *
