@@ -12,6 +12,7 @@ import Login from './components/LoginContainer';
 import MDSearch from './components/MDSearchContainer';
 import HomeContainer from './components/HomeContainer';
 import {BloodWorkForm, ImagingForm, ECGForm} from './components/RequisitionFormContainer';
+import Prescription from './components/PrescriptionContainer';
 
 // class Logout extends React.Component {
 //     render() {
@@ -32,6 +33,7 @@ export default function App() {
                 <Route path="/reqform/bloodwork" component={BloodWorkForm}></Route>
                 <Route path="/reqform/imaging" component={ImagingForm}></Route>
                 <Route path="/reqform/ecg" component={ECGForm}></Route>
+                <Route path="/prescription" component={Prescription}></Route>
             </Switch>
         </Router>
     );

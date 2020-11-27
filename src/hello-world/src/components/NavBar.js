@@ -25,7 +25,7 @@ function NavBar(props) {
                     MD Search
                 </button>
             </Link>
-            <Link>
+            <Link to="/prescription">
                 <button className="navBarButton" onClick={props.onClick}>
                     Prescription
                 </button>
