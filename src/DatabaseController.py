@@ -162,9 +162,9 @@ class DatabaseController():
             print(e)
         values = cur.fetchall()
         med_list = MedicationsList.MedicationsList()
-        for med in values[0]:
+        for med in values:
             new_med = Medication.Medication()
-            new_med.set_scientific_name(med)
+            new_med.set_scientific_name(med[0])
             med_list.add_medication(new_med)
         db.close()
         return med_list
@@ -361,11 +361,11 @@ data_controller = DatabaseController()
 #data_controller.set_medications(123, new_med_list)
 #data_controller.get_medications(123)
 
-allergy_list = AllergyList()
-allergy = Allergy('peanut', 'High')
-allergy1 = Allergy('fish', 'High')
-allergy_list.addAllergy(allergy)
-allergy_list.addAllergy(allergy1)
+#allergy_list = AllergyList()
+#allergy = Allergy('peanut', 'High')
+#allergy1 = Allergy('fish', 'High')
+#allergy_list.addAllergy(allergy)
+#allergy_list.addAllergy(allergy1)
 #data_controller.set_allergies(123, allergy_list)
 #new_allergy_list = data_controller.get_allergies(123)
 
