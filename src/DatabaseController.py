@@ -169,6 +169,26 @@ class DatabaseController():
         db.close()
         return med_list
 
+    def get_allergies(self, health_num):
+        db = self.create_connection()
+        cur = db.cursor()
+        query = """
+            SELECT * FROM Allergies
+            WHERE patientID = ?
+        """
+        try:
+            cur.execute(query, (health_num,))
+        except Exception as e:
+            print(e)
+        values = cur.fetchall()
+        print(values)
+        allergy_list = AllergyList()
+        for allergy in values:
+            new_allergy = Allergy(allergy[2], allergy[3])
+            allergy_list.addAllergy(new_allergy)
+        db.close()
+        return allergy_list
+
     def overwrite_patient(self, health_num, patient: PatientProfile):
         """
         Overwrites all the fields of a patient profile in the database or 
@@ -287,14 +307,14 @@ class DatabaseController():
             WHERE patientID = ?
         """
         try:
-            cur.execute(query, health_num)
+            cur.execute(query, (health_num,))
             db.commit()
         except Exception as e:
             print(e)
 
         #Then replace with the updated List
         for allergy in allergies.allergylist['allergies']:
-            self.post_row(health_num, Allergies, allergy.allergy)
+            self.post_row(health_num, 'Allergies', allergy.allergy)
 
 
 
@@ -341,6 +361,13 @@ data_controller = DatabaseController()
 #data_controller.set_medications(123, new_med_list)
 #data_controller.get_medications(123)
 
+allergy_list = AllergyList()
+allergy = Allergy('peanut', 'High')
+allergy1 = Allergy('fish', 'High')
+allergy_list.addAllergy(allergy)
+allergy_list.addAllergy(allergy1)
+#data_controller.set_allergies(123, allergy_list)
+#new_allergy_list = data_controller.get_allergies(123)
 
 
 
