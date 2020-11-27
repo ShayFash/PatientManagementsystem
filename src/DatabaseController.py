@@ -62,12 +62,12 @@ class DatabaseController():
         :return PatientProfile: A PatientProfile object
         """
         patient_dict = {}
-        patient_dict['name']
-        patient_dict['demographics']    #
-        patient_dict['notes']           #
-        patient_dict['billing_code']    #
-        patient_dict['drugs']           #
-        patient_dict['allergies']       #
+        patient_dict['name'] = self.get_name(health_num)
+        patient_dict['demographics'] = self.get_demographics(health_num)
+        patient_dict['notes'] = self.get_notes(health_num)          
+        patient_dict['billing_code'] = self.get_billing(health_num)
+        patient_dict['drugs'] = self.get_medications(health_num)
+        patient_dict['allergies'] = self.get_allergies(health_num)
         #Construct PatientProfile w/ dictionary
         patient_profile = PatientProfile(**patient_dict)
         return patient_profile
@@ -133,6 +133,41 @@ class DatabaseController():
         note.write_author(fn)
         note.write_body(values[0][3])
         return note
+
+    def get_billing(self, health_num):
+        db = self.create_connection()
+        cur = db.cursor()
+        query = """
+            SELECT billingCode FROM Billing
+            WHERE patientID = ?
+        """
+        try:
+            cur.execute(query, (health_num,))
+        except Exception as e:
+            print(e)
+        values = cur.fetchall()
+        db.close()
+        return values[0][0]
+
+    def get_medications(self, health_num):
+        db = self.create_connection()
+        cur = db.cursor()
+        query = """
+            SELECT scientific_name FROM MedicationEntry
+            WHERE patientID = ?
+        """
+        try:
+            cur.execute(query, (health_num,))
+        except Exception as e:
+            print(e)
+        values = cur.fetchall()
+        med_list = MedicationsList.MedicationsList()
+        for med in values[0]:
+            new_med = Medication.Medication()
+            new_med.set_scientific_name(med)
+            med_list.add_medication(new_med)
+        db.close()
+        return med_list
 
     def overwrite_patient(self, health_num, patient: PatientProfile):
         """
@@ -223,7 +258,7 @@ class DatabaseController():
             WHERE patientID = ?
         """
         try:
-            cur.execute(query, health_num)
+            cur.execute(query, (health_num,))
             db.commit()
         except Exception as e:
             print(e)
@@ -297,9 +332,14 @@ data_controller = DatabaseController()
 #test_note.write_author(fn)
 #test_note.write_body('My test note')
 #data_controller.insert_note(1111, test_note)
+#data_controller.get_notes(1111)
 
-data_controller.get_notes(1111)
-
+#new_med = Medication.Medication()
+#new_med.set_scientific_name('lamotrigine')
+#new_med_list = MedicationsList.MedicationsList()
+#new_med_list.add_medication(new_med)
+#data_controller.set_medications(123, new_med_list)
+#data_controller.get_medications(123)
 
 
 
