@@ -24,14 +24,14 @@ code {
 }
 
 .horizontalDivider {
-    width: 100px; /*Should be editted in-line to desired width*/
+    width: 10%; /*Should be editted in-line to desired width*/
     height: auto;
     display: inline-block
 }
 
 .verticalDivider {
     width: auto;
-    height: 100px; /*Should be editted in-line to desired height*/
+    height: 10%; /*Should be editted in-line to desired height*/
     display: inline-block
 }
 

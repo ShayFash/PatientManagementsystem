@@ -24,7 +24,7 @@ function NavBar(props) {
                     Prescription
                 </button>
             </Link>
-            <div className="horizontalDivider" style={{width: "930px"}}/>
+            <div className="horizontalDivider" style={{width: "52%"}}/>
             <Link to='/login'>
                 <button className="navBarButton" onClick={props.onClick}>
                     Logout

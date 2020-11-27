@@ -19,7 +19,7 @@ function LoginPanel(props) {
                 <form>
                     <input type="text" placeholder="Username" style={{fontSize: "32px"}}></input>
                     <br />
-                    <input type="pa" placeholder="Password" style={{fontSize: "32px"}}></input>
+                    <input type="password" placeholder="Password" style={{fontSize: "32px"}}></input>
                 </form>
             </div>
             <div style={{textAlign: "center"}}>
