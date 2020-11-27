@@ -2,12 +2,12 @@ import React from 'react';
 import {Link} from 'react-router-dom';
 import Demographics from './Demographics';
 import NavBar from './NavBar';
+import PatientProfileContainer from './PatientProfileContainer';
 
 function Prescription() {
     return (
         <div className="homeContainer">
-            <Demographics />
-            <NavBar />
+            <PatientProfileContainer/>
             <form style={{height: "200px"}}>
                 <br />
                 <input type="text" placeholder="Medication with Dosage"

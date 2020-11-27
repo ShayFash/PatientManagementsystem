@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import { Link } from 'react-router-dom';
 import NavBar from './NavBar';
 import Demographics from './Demographics'
+import PatientProfileContainer from './PatientProfileContainer';
 
 function MDSearch(props) {
     const [specialty, setSpecialty] = useState("");
@@ -30,8 +31,7 @@ function SpecialtyList(props) {
 
     return (
         <div className="homeContainer">
-            <Demographics />
-            <NavBar />
+            <PatientProfileContainer/>
             <br />
             <form style={{height: "200px"}}>
                 <select value={specialty} className="navBarButton" onChange={changeSpecialty}
