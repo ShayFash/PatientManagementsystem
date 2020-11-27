@@ -5,91 +5,35 @@ import reportWebVitals from './reportWebVitals';
 import {
     BrowserRouter as Router,
     Switch,
-    Route,
-    Link
+    Route
 } from "react-router-dom";
+import NewNote from './components/NewNoteContainer';
+import Login from './components/LoginContainer';
+import MDSearch from './components/MDSearchContainer';
+import HomeContainer from './components/HomeContainer';
+import {BloodWorkForm, ImagingForm, ECGForm} from './components/RequisitionFormContainer';
+import Prescription from './components/PrescriptionContainer';
 
-class HomeContainer extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {};
-    }
-
-    render(){
-        return (
-            <div className="homeContainer">
-                <p>Hello, Dr. X</p>
-                <button className="logoutButton" onClick={this.props.onClick}>
-                    Logout
-                </button>
-                <NavBar />
-                <Demographics />
-            </div>
-        );
-    }
-}
-
-class Demographics extends React.Component {
-    render() {
-        return (
-            <div className="demographics">
-                {/* I believe we're getting rid of
-                    height, weight and family physician */}
-                <p>Name:</p>
-                <p>Address:</p>
-                <p>DOB:</p>
-                <p>Allergies:</p>
-                <p>Family History:</p>
-                <p>Medical Condition:</p>
-                <p>Age:</p>
-                <p>Height:</p>
-                <p>Weight:</p>
-                <p>Medications:</p>
-                <p>Family Physician:</p>
-            </div>
-        );
-    }
-}
-
-class NavBar extends React.Component {
-    render() {
-        return (
-            <div className="navBar">
-                <Link>
-                    <button className="navBarButton" onClick={this.props.onClick}>
-                        New Note
-                    </button>
-                </Link>
-                <Link>
-                    <button className="navBarButton" onClick={this.props.onClick}>
-                        Requisition Forms
-                    </button>
-                </Link>
-                <Link>
-                    <button className="navBarButton" onClick={this.props.onClick}>
-                        MD Search
-                    </button>
-                </Link>
-                <Link>
-                    <button className="navBarButton" onClick={this.props.onClick}>
-                        Prescription
-                    </button>
-                </Link>
-            </div>
-        );
-    }
-}
-
-class Logout extends React.Component {
-
-}
+// class Logout extends React.Component {
+//     render() {
+//         /* Temporary obviously */
+//         return <h1>Logged Out!</h1>
+//     }
+// }
 
 export default function App() {
     return (
         <Router>
             <Switch>
-                <Route path="/" component={HomeContainer} />
-                <Route path="/logout" component={Logout} />
+                <Route path="/" exact component={HomeContainer} />
+                {/* <Route path="/logout" component={Logout} /> */}
+                <Route path="/newnote" component={NewNote} />
+                <Route path="/login" component={Login}></Route>
+                <Route path="/MDsearch" component={MDSearch}></Route>
+                <Route path="/reqform/bloodwork" component={BloodWorkForm}></Route>
+                <Route path="/reqform/imaging" component={ImagingForm}></Route>
+                <Route path="/reqform/ecg" component={ECGForm}></Route>
+                <Route path="/prescription" component={Prescription}></Route>
             </Switch>
         </Router>
     );
