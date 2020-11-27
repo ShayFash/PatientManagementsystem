@@ -84,13 +84,55 @@ class DatabaseController():
         except Exception as e:
             print(e)
         names = cur.fetchall()
+        db.close()
         fn = FullName()
         fn.set_given_name = names[0]
         fn.set_middle_names = names[1]
         fn.set_surname = names[2]
         return fn
 
-    
+    def get_demographics(self, health_num):
+        db = self.create_connection()
+        cur = db.cursor()
+        query = """
+            SELECT dateOfBirth, address, familyHistory, medicalConditions FROM Patient
+            WHERE patientID = ?
+        """
+        try:
+            cur.execute(query, (health_num,))
+        except Exception as e:
+            print(e)
+        values = cur.fetchall()
+        values_list = list(values[0])
+        db.close()
+        demo = Demographics.Demographics()
+        demo.set_date_of_birth(values_list[0])
+        demo.set_address(values_list[1])
+        demo.set_family_history(values_list[2])
+        demo.set_medical_conditions(values_list[3])
+        return demo
+
+    def get_notes(self, health_num):
+        db = self.create_connection()
+        cur = db.cursor()
+        query = """
+            SELECT * FROM Note
+            WHERE patientID = ?
+        """
+        try:
+            cur.execute(query, (health_num,))
+        except Exception as e:
+            print(e)
+        values = cur.fetchall()
+        note = Note.Note()
+        date = values[0][1].split('/')
+        note.write_date(date[0], date[1], date[2])
+        #Fix this later, maybe just change author in note to string
+        fn = FullName()
+        fn.set_given_name(values[0][2])
+        note.write_author(fn)
+        note.write_body(values[0][3])
+        return note
 
     def overwrite_patient(self, health_num, patient: PatientProfile):
         """
@@ -240,18 +282,27 @@ data_controller = DatabaseController()
 #demo.set_date_of_birth('Aug 7 1997')
 #demo.set_family_history('Not good')
 #data_controller.set_demographics(1151, demo)
+#demo = data_controller.get_demographics(1151)
+#print(demo.get_address())
 
-fn = FullName()
-fn.set_given_name("David")
-fn.set_middle_names(["Lee"])
-fn.set_surname("Baesmintdwaellor")
-data_controller.set_name(123, fn)
-data_controller.get_name(123)
+#fn = FullName()
+#fn.set_given_name("David")
+#fn.set_middle_names(["Lee"])
+#fn.set_surname("Baesmintdwaellor")
+#data_controller.set_name(123, fn)
+#data_controller.get_name(123)
 
 #test_note = Note.Note()
 #test_note.write_date(26, 'November', 2020)
 #test_note.write_author(fn)
 #test_note.write_body('My test note')
 #data_controller.insert_note(1111, test_note)
+
+data_controller.get_notes(1111)
+
+
+
+
+
 
 
