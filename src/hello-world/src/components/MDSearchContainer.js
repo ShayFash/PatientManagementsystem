@@ -4,6 +4,7 @@ import Demographics from './Demographics'
 
 function MDSearch(props) {
     const [specialtySelected, setSpecialtySelected] = useState(false);
+    // need to change to get selected instead of checking if it was selected
     if (!specialtySelected) {
         return <SpecialtyList isSelected={specialtySelected} setSpecialtySelected={setSpecialtySelected}/>
     }

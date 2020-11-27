@@ -5,13 +5,13 @@ import reportWebVitals from './reportWebVitals';
 import {
     BrowserRouter as Router,
     Switch,
-    Route,
-    Link
+    Route
 } from "react-router-dom";
 import NewNote from './components/NewNoteContainer';
 import Login from './components/LoginContainer';
 import MDSearch from './components/MDSearchContainer';
 import HomeContainer from './components/HomeContainer';
+import {BloodWorkForm, ImagingForm, ECGForm} from './components/RequisitionFormContainer';
 
 // class Logout extends React.Component {
 //     render() {
@@ -24,12 +24,14 @@ export default function App() {
     return (
         <Router>
             <Switch>
-                {/* <Route path="/" exact component={Login} /> */}
                 <Route path="/" exact component={HomeContainer} />
                 {/* <Route path="/logout" component={Logout} /> */}
                 <Route path="/newnote" component={NewNote} />
                 <Route path="/login" component={Login}></Route>
                 <Route path="/MDsearch" component={MDSearch}></Route>
+                <Route path="/reqform/bloodwork" component={BloodWorkForm}></Route>
+                <Route path="/reqform/imaging" component={ImagingForm}></Route>
+                <Route path="/reqform/ecg" component={ECGForm}></Route>
             </Switch>
         </Router>
     );

@@ -1,7 +1,11 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 
 function NavBar(props) {
+    let history = useHistory();
+    function handleChange(event) {
+        history.push(`/reqform/${event.target.value}`)
+    }
     return (
         <div className="navBar">
             <Link to="/newnote">
@@ -9,11 +13,13 @@ function NavBar(props) {
                     New Note
                 </button>
             </Link>
-            <Link>
-                <button className="navBarButton" onClick={props.onClick}>
-                    Requisition Forms
-                </button>
-            </Link>
+            <select className="navBarButton" onChange={handleChange}>
+                <option selected disabled>Requisition Forms</option>
+                <option value="bloodwork">Blood Work</option>
+                <option value="imaging">Imaging</option>
+                <option value="ecg">ECG</option>
+            </select>
+
             <Link to="/MDsearch">
                 <button className="navBarButton" onClick={props.onClick}>
                     MD Search
@@ -24,7 +30,7 @@ function NavBar(props) {
                     Prescription
                 </button>
             </Link>
-            <div className="horizontalDivider" style={{width: "52%"}}/>
+            <div className="horizontalDivider" style={{width: "50%"}}/>
             <Link to='/login'>
                 <button className="navBarButton" onClick={props.onClick}>
                     Logout
