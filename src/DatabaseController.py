@@ -62,12 +62,13 @@ class DatabaseController():
         :return PatientProfile: A PatientProfile object
         """
         patient_dict = {}
-        patient_dict['name'] = self.get_name(health_num)
+        patient_dict['full_name'] = self.get_name(health_num)
         patient_dict['demographics'] = self.get_demographics(health_num)
         patient_dict['notes'] = self.get_notes(health_num)          
         patient_dict['billing_code'] = self.get_billing(health_num)
-        patient_dict['drugs'] = self.get_medications(health_num)
+        patient_dict['medications'] = self.get_medications(health_num)
         patient_dict['allergies'] = self.get_allergies(health_num)
+        patient_dict['lab_work'] = None
         #Construct PatientProfile w/ dictionary
         patient_profile = PatientProfile(**patient_dict)
         return patient_profile
@@ -86,9 +87,9 @@ class DatabaseController():
         names = cur.fetchall()
         db.close()
         fn = FullName()
-        fn.set_given_name = names[0]
-        fn.set_middle_names = names[1]
-        fn.set_surname = names[2]
+        fn.set_given_name = names[0][0]
+        fn.set_middle_names = names[0][1]
+        fn.set_surname = names[0][2]
         return fn
 
     def get_demographics(self, health_num):
@@ -181,7 +182,6 @@ class DatabaseController():
         except Exception as e:
             print(e)
         values = cur.fetchall()
-        print(values)
         allergy_list = AllergyList()
         for allergy in values:
             new_allergy = Allergy(allergy[2], allergy[3])
@@ -332,42 +332,46 @@ class DatabaseController():
 #"""
 
 data_controller = DatabaseController() 
-#demo = Demographics.Demographics()
-#demo.set_address('main st')
-#demo.set_date_of_birth('Aug 7 1997')
-#demo.set_family_history('Not good')
-#data_controller.set_demographics(1151, demo)
+demo = Demographics.Demographics()
+demo.set_address('main st')
+demo.set_date_of_birth('Aug 7 1997')
+demo.set_family_history('Not good')
+data_controller.set_demographics(123, demo)
 #demo = data_controller.get_demographics(1151)
 #print(demo.get_address())
 
-#fn = FullName()
-#fn.set_given_name("David")
-#fn.set_middle_names(["Lee"])
-#fn.set_surname("Baesmintdwaellor")
-#data_controller.set_name(123, fn)
+fn = FullName()
+fn.set_given_name("David")
+fn.set_middle_names(["Lee"])
+fn.set_surname("Baesmintdwaellor")
+data_controller.set_name(123, fn)
 #data_controller.get_name(123)
 
-#test_note = Note.Note()
-#test_note.write_date(26, 'November', 2020)
-#test_note.write_author(fn)
-#test_note.write_body('My test note')
-#data_controller.insert_note(1111, test_note)
+test_note = Note.Note()
+test_note.write_date(26, 'November', 2020)
+test_note.write_author(fn)
+test_note.write_body('My test note')
+data_controller.insert_note(123, test_note)
 #data_controller.get_notes(1111)
 
-#new_med = Medication.Medication()
-#new_med.set_scientific_name('lamotrigine')
-#new_med_list = MedicationsList.MedicationsList()
-#new_med_list.add_medication(new_med)
-#data_controller.set_medications(123, new_med_list)
+new_med = Medication.Medication()
+new_med.set_scientific_name('lamotrigine')
+new_med_list = MedicationsList.MedicationsList()
+new_med_list.add_medication(new_med)
+data_controller.set_medications(123, new_med_list)
 #data_controller.get_medications(123)
 
-#allergy_list = AllergyList()
-#allergy = Allergy('peanut', 'High')
-#allergy1 = Allergy('fish', 'High')
-#allergy_list.addAllergy(allergy)
-#allergy_list.addAllergy(allergy1)
-#data_controller.set_allergies(123, allergy_list)
+allergy_list = AllergyList()
+allergy = Allergy('peanut', 'High')
+allergy1 = Allergy('fish', 'High')
+allergy_list.addAllergy(allergy)
+allergy_list.addAllergy(allergy1)
+data_controller.set_allergies(123, allergy_list)
 #new_allergy_list = data_controller.get_allergies(123)
+
+data_controller.set_billing(123, 'samplebillingcode')
+
+new_patient = data_controller.get_patient(123)
 
 
 
