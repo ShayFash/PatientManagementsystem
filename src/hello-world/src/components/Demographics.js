@@ -5,17 +5,17 @@ function Demographics(props) {
         <div className="demographics">
             {/* I believe we're getting rid of
                 height, weight and family physician */}
-            <p>Name:</p>
-            <p>Address:</p>
-            <p>DOB:</p>
-            <p>Allergies:</p>
-            <p>Family History:</p>
-            <p>Medical Condition:</p>
-            <p>Age:</p>
-            <p>Height:</p>
-            <p>Weight:</p>
-            <p>Medications:</p>
-            <p>Family Physician:</p>
+            <p>Name: {props.name}</p>
+            <p>Address: {props.address}</p>
+            <p>DOB: {props.dateOfBirth}</p>
+            <p>Allergies: {props.allergies}</p>
+            {/* <p>Family History: {props.familyHistory}</p> */}
+            <p>Medical Condition: {props.medicalCondition}</p>
+            <p>Age: {props.age}</p>
+            {/* <p>Height:</p>
+            <p>Weight:</p> */}
+            <p>Medications: {props.medications}</p>
+            {/* <p>Family Physician:</p> */}
         </div>
     );
 }

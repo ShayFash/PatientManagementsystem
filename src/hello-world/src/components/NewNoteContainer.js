@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import NavBar from './NavBar';
 import Demographics from './Demographics';
+import homeContainer from './HomeContainer';
+import PatientProfileContainer from './PatientProfileContainer';
 
 function NewNote(props) {
     const [noteText, setNoteText] = useState("");
@@ -19,8 +21,7 @@ function NewNote(props) {
 
     return (
         <div  className="homeContainer">
-            <Demographics />
-            <NavBar />
+            <PatientProfileContainer/>
             <form style={{height: "600px"}}>
                 <br />
                 <textarea

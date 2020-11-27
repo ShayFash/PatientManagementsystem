@@ -1,12 +1,12 @@
 import React from 'react';
 import Demographics from './Demographics';
 import NavBar from './NavBar';
+import PatientProfileContainer from './PatientProfileContainer';
 
 function BloodWorkForm() {
     return (
         <div className="homeContainer">
-            <Demographics />
-            <NavBar />
+            <PatientProfileContainer/>
             <div style={{textAlign: "left", marginLeft: "5%"}}>
                 <h1>BloodWork</h1>
             </div>
@@ -17,8 +17,7 @@ function BloodWorkForm() {
 function ImagingForm() {
     return (
         <div className="homeContainer">
-            <Demographics />
-            <NavBar />
+            <PatientProfileContainer/>
             <form style={{textAlign: "left", marginLeft: "5%"}}>
                 <h1>Imaging</h1>
             </form>
@@ -29,8 +28,7 @@ function ImagingForm() {
 function ECGForm() {
     return (
         <div className="homeContainer">
-            <Demographics />
-            <NavBar />
+            <PatientProfileContainer/>
             <div style={{textAlign: "left", marginLeft: "5%"}}>
                 <h1>ECG</h1>
             </div>
