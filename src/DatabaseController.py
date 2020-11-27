@@ -1,5 +1,6 @@
 from PatientProfile import *
-import Allergies, Demographics, Labwork, Medication, MedicationsList, Names, Note
+from Allergies import *
+import Demographics, Labwork, Medication, MedicationsList, Names, Note
 import sqlite3
 
 class DatabaseController():
@@ -12,10 +13,46 @@ class DatabaseController():
         """
         db = None
         try:
-            db = sqlite3.connect('./db/db_medical.db')
+            db = sqlite3.connect('./db/medical.db')
         except Exception as e:
             print(e)
         return db
+
+    #currently unused  
+    def execute_insert_query(self, health_num, table_name, column_name, value):
+        db = self.create_connection()
+        cur = db.cursor()
+        cur.execute("INSERT OR REPLACE INTO "+table_name+" (patientID, "+column_name+") VALUES (?, ?)", (health_num, value))
+        cur.close()
+        db.commit()
+        db.close()
+
+    def post_row(self, health_num, table_name, dict):
+        """
+        Given the relevant patient's health card number, insert or REPLACE a dictionary as a row of information
+        into the provided data table
+        :param health_num: a 9-digit integer health number corresponding to patient
+        :param table_name: name of the data table to be inserted into
+        :param dict: dictionary containing the fields of information to be inserted
+        """
+        #Setup db connect
+        db = self.create_connection()
+        cur = db.cursor()
+        #transform dict into params for query
+        keys = ','.join(dict.keys())
+        question_marks = ','.join(list('?'*((len(dict))+1)))
+        values = list(dict.values())
+        #insert health_num as first value in query (It is always the primary key)
+        values.insert(0, health_num)
+        #Execute the query
+        try:
+            cur.execute('INSERT OR REPLACE INTO '+table_name+' (patientID, '+keys+') VALUES ('+question_marks+')', values)
+            db.commit()
+        except Exception as e:
+            print(e)
+        #finishing up
+        cur.close()
+        db.close()
 
     def get_patient(self, health_num):
         """
@@ -24,14 +61,16 @@ class DatabaseController():
         :param health_num: a 9-digit integer health number corresponding to patient
         :return PatientProfile: A PatientProfile object
         """
+        db = self.create_connection()
+        cur = db.cursor()
+
         patient_dict = {}
-        patient_dict['name']            #select queries given id health_num
+        patient_dict['name']
         patient_dict['demographics']    #
         patient_dict['notes']           #
         patient_dict['billing_code']    #
         patient_dict['drugs']           #
         patient_dict['allergies']       #
-        patient_dict['lab_work']        #
         #Construct PatientProfile w/ dictionary
         patient_profile = PatientProfile(**patient_dict)
         return patient_profile
@@ -60,39 +99,25 @@ class DatabaseController():
     def set_name(self, health_num, fullname: FullName):
         """
         Writes the provided FullName objects information into the database for the
-        given health_num
+        given health_num (currently stores fullname as string)
         :param health_num: a 9-digit integer health number corresponding to patient 
         :param FullName: a FullName object containing the patient's name
         """
-        db = self.create_connection()
-        cur = db.cursor()
-        try:
-            cur.execute('INSERT INTO Patient (patientID, name) VALUES(?, ?)', 
-                        (health_num, fullname.get_full_name_to_string()))
-            db.commit()
-        except Exception as e:
-            print(e)
-        db.close()
-        
+        full_name_dict = {}
+        full_name_dict['givenName'] = fullname.get_given_name()
+        full_name_dict['middleName'] = fullname.get_middle_names_to_string()
+        full_name_dict['surname'] = fullname.get_surname()   
+        self.post_row(health_num, 'Names', full_name_dict)
 
-    def set_demographics(self, health_num, demographics: Demographics.Demographics):
+    def set_demographics(self, health_num, demographics: Demographics):
         """
         Writes the information from the provided Demographics object into the database
         for the given health_num
         :param health_num: a 9-digit integer health number corresponding to patient 
         :param demographics: a Demographics object containing patient information
         """
-        db = self.create_connection()
-        cur = db.cursor()
-        for key, item in demographics.demographics.items():
-            #insert/replace demographic items into patient's table w/ id:health_num
-            try:
-                cur.execute("INSERT OR REPLACE INTO Patient ("+key+", 'patientID') VALUES(?, ?)", (item, health_num)) 
-                db.commit()
-            except Exception as e:
-                print(e)
-        db.close()
-            
+        self.post_row(health_num, 'Patient', demographics.demographics)
+                 
 
     def insert_note(self, health_num, note: Note):
         """
@@ -100,11 +125,11 @@ class DatabaseController():
         :param health_num: a 9-digit integer health number corresponding to patient 
         :param note: a Note object containing note information
         """
-        db = self.create_connection()
-        cur = db.cursor()
-        for key, item in note.note.items():
-            #insert items into notes table alongside id:health_num
-            pass
+        insertable_note = {}
+        insertable_note['date'] = note.get_date()
+        insertable_note['author'] = note.note['author'].get_full_name_to_string()
+        insertable_note['body'] = note.note['body']
+        self.post_row(health_num, 'Note', insertable_note)
 
 
     def set_billing(self, health_num, billing_code):
@@ -115,7 +140,13 @@ class DatabaseController():
         """
         db = self.create_connection()
         cur = db.cursor()
-        #SQL query to billing_code table with health_num key blabla
+        try:
+            cur.execute('INSERT INTO Billing (patientID, billingCode) VALUES(?, ?)', 
+                        (health_num, billing_code))
+            db.commit()
+        except Exception as e:
+            print(e)
+        db.close()
 
 
     def set_medications(self, health_num, medication_list: MedicationsList):
@@ -126,18 +157,29 @@ class DatabaseController():
         """
 
         #Remove existing medication values from table
-        #Idk how to do that lol 'DELETE FROM MedicationEntry health_num' or something
-
-        #Then replace with the updated List
         db = self.create_connection()
         cur = db.cursor()
-        for drug in medication_list:
-            #insert health_num drug table value drug.scientific_name into column scientific_name
-            for name in drug.market_names:
-                #insert str(name + ', ') into market names
-                pass
+        query = """
+            DELETE FROM MedicationEntry
+            WHERE patientID = ?
+        """
+        try:
+            cur.execute(query, health_num)
+            db.commit()
+        except Exception as e:
+            print(e)
+
+        #NOTE: Market Names implementation not priority atm, use scientific name
+        #Then replace with the updated List
+        for drug in medication_list.medications:
+            try:
+                cur.execute('INSERT INTO MedicationEntry(patientID, scientific_name) VALUES(?, ?)',
+                            (health_num, drug.get_scientific_name()))
+                db.commit()
+            except Exception as e:
+                print(e)
         
-    def set_allergies(self, health_num, allergies: Allergies):
+    def set_allergies(self, health_num, allergies: AllergyList):
         """
         Writes/Replaces the allergies list into the database for the specified patient
         :param health_num: a 9-digit integer health number corresponding to patient
@@ -146,10 +188,21 @@ class DatabaseController():
         #Remove existing Allergy values from table
         db = self.create_connection()
         cur = db.cursor()
-        #Replace with updated Allergy list
+        query = """
+            DELETE FROM Allergies
+            WHERE patientID = ?
+        """
+        try:
+            cur.execute(query, health_num)
+            db.commit()
+        except Exception as e:
+            print(e)
+
+        #Then replace with the updated List
         for allergy in allergies.allergylist['allergies']:
-            #insert allergy 
-            pass
+            self.post_row(health_num, Allergies, allergy.allergy)
+
+
 
     def set_lab_work(self, health_num, lab_work: Labwork):
         """
@@ -157,15 +210,30 @@ class DatabaseController():
         :param health_num: a 9-digit integer health number corresponding to patient 
         :param lab_work: a LabWork object containing the lab work data in question
         """
-        db = self.create_connection()
-        cur = db.cursor()
+        return
 
-        
+
+#"""
+#Misc Testing on the fly \/
+#"""
+
 data_controller = DatabaseController() 
-demo = Demographics.Demographics()
-demo.set_address('main st')
+#demo = Demographics.Demographics()
+#demo.set_address('main st')
 #demo.set_date_of_birth('Aug 7 1997')
-data_controller.set_demographics(111, demo)
-#data_controller.set_name(34234, "Sam")
+#demo.set_family_history('Not good')
+#data_controller.set_demographics(1151, demo)
+#name = FullName()
+#name.set_given_name('Sam')
+#data_controller.set_name(34234, name)
+test_note = Note.Note()
+test_note.write_date(26, 'November', 2020)
+#date = test_note.get_date()
+#print(date)
+name = FullName()
+name.set_given_name('Sam')
+test_note.write_author(name)
+test_note.write_body('My test note')
+data_controller.insert_note(1111, test_note)
 
 
