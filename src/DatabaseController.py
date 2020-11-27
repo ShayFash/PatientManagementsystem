@@ -61,9 +61,6 @@ class DatabaseController():
         :param health_num: a 9-digit integer health number corresponding to patient
         :return PatientProfile: A PatientProfile object
         """
-        db = self.create_connection()
-        cur = db.cursor()
-
         patient_dict = {}
         patient_dict['name']
         patient_dict['demographics']    #
@@ -74,6 +71,26 @@ class DatabaseController():
         #Construct PatientProfile w/ dictionary
         patient_profile = PatientProfile(**patient_dict)
         return patient_profile
+
+    def get_name(self, health_num):
+        db = self.create_connection()
+        cur = db.cursor()
+        query = """
+            SELECT givenName, middleNames, surname FROM Names
+            WHERE patientID = ?
+        """
+        try:
+            cur.execute(query, (health_num,))
+        except Exception as e:
+            print(e)
+        names = cur.fetchall()
+        fn = FullName()
+        fn.set_given_name = names[0]
+        fn.set_middle_names = names[1]
+        fn.set_surname = names[2]
+        return fn
+
+    
 
     def overwrite_patient(self, health_num, patient: PatientProfile):
         """
@@ -99,13 +116,13 @@ class DatabaseController():
     def set_name(self, health_num, fullname: FullName):
         """
         Writes the provided FullName objects information into the database for the
-        given health_num (currently stores fullname as string)
+        given health_num
         :param health_num: a 9-digit integer health number corresponding to patient 
         :param FullName: a FullName object containing the patient's name
         """
         full_name_dict = {}
         full_name_dict['givenName'] = fullname.get_given_name()
-        full_name_dict['middleName'] = fullname.get_middle_names_to_string()
+        full_name_dict['middleNames'] = fullname.get_middle_names_to_string()
         full_name_dict['surname'] = fullname.get_surname()   
         self.post_row(health_num, 'Names', full_name_dict)
 
@@ -223,17 +240,18 @@ data_controller = DatabaseController()
 #demo.set_date_of_birth('Aug 7 1997')
 #demo.set_family_history('Not good')
 #data_controller.set_demographics(1151, demo)
-#name = FullName()
-#name.set_given_name('Sam')
-#data_controller.set_name(34234, name)
-test_note = Note.Note()
-test_note.write_date(26, 'November', 2020)
-#date = test_note.get_date()
-#print(date)
-name = FullName()
-name.set_given_name('Sam')
-test_note.write_author(name)
-test_note.write_body('My test note')
-data_controller.insert_note(1111, test_note)
+
+fn = FullName()
+fn.set_given_name("David")
+fn.set_middle_names(["Lee"])
+fn.set_surname("Baesmintdwaellor")
+data_controller.set_name(123, fn)
+data_controller.get_name(123)
+
+#test_note = Note.Note()
+#test_note.write_date(26, 'November', 2020)
+#test_note.write_author(fn)
+#test_note.write_body('My test note')
+#data_controller.insert_note(1111, test_note)
 
 
