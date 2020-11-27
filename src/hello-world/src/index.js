@@ -8,49 +8,10 @@ import {
     Route,
     Link
 } from "react-router-dom";
-import NewNote from './components/NewNote';
-import Login from './components/Login';
-import MDSearch from './components/MDSearch';
-import NavBar from './components/NavBar';
-
-class HomeContainer extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {};
-    }
-
-    render(){
-        return (
-            <div className="homeContainer">
-                <h1>Hello, Dr. X</h1>
-                <NavBar />
-                <Demographics />
-            </div>
-        );
-    }
-}
-
-class Demographics extends React.Component {
-    render() {
-        return (
-            <div className="demographics">
-                {/* I believe we're getting rid of
-                    height, weight and family physician */}
-                <p>Name:</p>
-                <p>Address:</p>
-                <p>DOB:</p>
-                <p>Allergies:</p>
-                <p>Family History:</p>
-                <p>Medical Condition:</p>
-                <p>Age:</p>
-                <p>Height:</p>
-                <p>Weight:</p>
-                <p>Medications:</p>
-                <p>Family Physician:</p>
-            </div>
-        );
-    }
-}
+import NewNote from './components/NewNoteContainer';
+import Login from './components/LoginContainer';
+import MDSearch from './components/MDSearchContainer';
+import HomeContainer from './components/HomeContainer';
 
 // class Logout extends React.Component {
 //     render() {

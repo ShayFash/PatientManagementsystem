@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import NavBar from './NavBar';
+import Demographics from './Demographics';
 
 function NewNote(props) {
     const [noteText, setNoteText] = useState("");
@@ -16,16 +18,11 @@ function NewNote(props) {
     }
 
     return (
-        <div>
-            <form className="homeContainer" style={{padding: "50px"}}>
-                <span style={{fontSize: "24px", fontWeight: "bold", fontStyle: "italic"}}>
-                    New Note:
-                </span>
-                <div className="horizontalDivider" style={{width: "700px"}}/>
-                <Link to="/">
-                    <button className="navBarButton">Back</button>
-                </Link>
-                <br/>
+        <div  className="homeContainer">
+            <Demographics />
+            <NavBar />
+            <form style={{height: "600px"}}>
+                <br />
                 <textarea
                 placeholder="Insert Text" value={noteText} onChange={changeNote}
                 style={{width:"900px", height: "450px", fontSize: "24px"}}
