@@ -1,7 +1,5 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
-import Demographics from './Demographics';
-import NavBar from './NavBar';
 import PatientProfileContainer from './PatientProfileContainer';
 
 function Prescription() {

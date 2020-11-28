@@ -1,6 +1,4 @@
 import React from 'react';
-import Demographics from './Demographics';
-import NavBar from './NavBar';
 import PatientProfileContainer from './PatientProfileContainer';
 
 function BloodWorkForm() {

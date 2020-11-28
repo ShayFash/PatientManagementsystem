@@ -62,8 +62,7 @@ function DoctorList(props) {
     }
     return (
         <div className="homeContainer">
-            <Demographics />
-            <NavBar />
+            <PatientProfileContainer />
             <br />
             <form style={{height: "200px"}}>
                 <select className="navBarButton" value={doctor} onChange={changeDoctor}
@@ -88,8 +87,7 @@ function DoctorList(props) {
 function RequestForm(props) {
     return (
         <div className="homeContainer">
-            <Demographics />
-            <NavBar />
+            <PatientProfileContainer />
             <h1>{props.doctorName}</h1>
             <h2>Specialty: {props.doctorSpecialty}</h2>
             <br />
