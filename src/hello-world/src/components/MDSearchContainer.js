@@ -1,7 +1,5 @@
 import React, {useState} from 'react';
 import { Link } from 'react-router-dom';
-import NavBar from './NavBar';
-import Demographics from './Demographics'
 import PatientProfileContainer from './PatientProfileContainer';
 
 function MDSearch(props) {
