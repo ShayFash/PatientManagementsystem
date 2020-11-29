@@ -22,7 +22,7 @@ function LoginPanel(props) {
             <div style={{textAlign: "center"}}>
                 <button className="navBarButton">Forgotten Password?</button>
                 <div className="horizontalDivider"/>
-                <Link to="/">
+                <Link to="/patientsearch">
                     <button className="navBarButton">Login</button>
                 </Link>
             </div>

@@ -1,7 +1,5 @@
 import React, {useState} from 'react';
 import { Link } from 'react-router-dom';
-import NavBar from './NavBar';
-import Demographics from './Demographics'
 import PatientProfileContainer from './PatientProfileContainer';
 
 function MDSearch(props) {
@@ -34,9 +32,9 @@ function SpecialtyList(props) {
             <PatientProfileContainer/>
             <br />
             <form style={{height: "200px"}}>
-                <select value={specialty} className="navBarButton" onChange={changeSpecialty}
+                <select className="navBarButton" onChange={changeSpecialty}
                 style={{border: "1px solid black"}}>
-                    <option>-- Select Specialty --</option>
+                    <option selected disabled>-- Select Specialty --</option>
                     <option value="Cardiac">Cardiac</option>
                     <option value="Endocrinologist">Endocrinologist</option>
                     <option value="Oncology">Oncology</option>
@@ -65,9 +63,9 @@ function DoctorList(props) {
             <PatientProfileContainer />
             <br />
             <form style={{height: "200px"}}>
-                <select className="navBarButton" value={doctor} onChange={changeDoctor}
+                <select className="navBarButton" onChange={changeDoctor}
                 style={{border: "1px solid black"}}>
-                    <option>-- Choose Doctor --</option>
+                    <option selected disabled>-- Choose Doctor --</option>
                     <option value="Doctor X">Dr. X</option>
                     <option value="Doctor Y">Dr. Y</option>
                     <option value="Doctor Z">Dr. Z</option>
