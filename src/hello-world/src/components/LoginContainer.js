@@ -4,10 +4,7 @@ import { Link } from 'react-router-dom';
 function Login(props) {
     return (
             <div>
-                <div style={{textAlign: "right", marginRight: "50px"}}>
-                    <button>Logout</button>
-                </div>
-                    <LoginPanel />
+               <LoginPanel />
             </div>
     )
 }
