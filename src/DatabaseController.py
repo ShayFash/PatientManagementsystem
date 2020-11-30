@@ -75,6 +75,11 @@ class DatabaseController():
         return patient_profile
 
     def get_name(self, health_num):
+        """
+        Returns the fullname of the patient with that health number
+        :param health_num: 9 digit int
+        :return FullName: FullName object representing patient's name
+        """
         db = self.create_connection()
         cur = db.cursor()
         query = """
@@ -94,6 +99,11 @@ class DatabaseController():
         return fn
 
     def get_demographics(self, health_num):
+        """
+        Returns the demographics of the patient with that health number
+        :param health_num: 9 digit int
+        :return Demographics: Demographics object containing patient information
+        """
         db = self.create_connection()
         cur = db.cursor()
         query = """
@@ -115,6 +125,11 @@ class DatabaseController():
         return demo
 
     def get_notes(self, health_num):
+        """
+        Returns appended doctors note pertaining to patient
+        :param health_num: 9 digit int
+        :return Note[]: a list of Note objects
+        """
         db = self.create_connection()
         cur = db.cursor()
         query = """
@@ -126,15 +141,18 @@ class DatabaseController():
         except Exception as e:
             print(e)
         values = cur.fetchall()
-        note = Note.Note()
-        date = values[0][1].split('/')
-        note.write_date(date[0], date[1], date[2])
-        #Fix this later, maybe just change author in note to string
-        fn = FullName()
-        fn.set_given_name(values[0][2])
-        note.write_author(fn)
-        note.write_body(values[0][3])
-        return note
+        list_of_notes = []
+        for doc_note in values:
+            note = Note.Note()
+            date = doc_note[2].split('/')
+            note.write_date(date[0], date[1], date[2])
+            #Fix this later, maybe just change author in note to string
+            fn = FullName()
+            fn.set_given_name(doc_note[3])
+            note.write_author(fn)
+            note.write_body(doc_note[4])
+            list_of_notes.append(note)
+        return list_of_notes
 
     def get_billing(self, health_num):
         db = self.create_connection()
@@ -240,11 +258,12 @@ class DatabaseController():
         :param health_num: a 9-digit integer health number corresponding to patient 
         :param note: a Note object containing note information
         """
-        insertable_note = {}
-        insertable_note['date'] = note.get_date()
-        insertable_note['author'] = note.note['author'].get_full_name_to_string()
-        insertable_note['body'] = note.note['body']
-        self.post_row(health_num, 'Note', insertable_note)
+        db = self.create_connection()
+        cur = db.cursor()
+        cur.execute("INSERT INTO Note (patientID, date, author, body) VALUES (?, ?, ?, ?)", (health_num, note.get_date(), note.get_author(), note.get_body()))
+        cur.close()
+        db.commit()
+        db.close()
 
 
     def set_billing(self, health_num, billing_code):
@@ -256,7 +275,7 @@ class DatabaseController():
         db = self.create_connection()
         cur = db.cursor()
         try:
-            cur.execute('INSERT INTO Billing (patientID, billingCode) VALUES(?, ?)', 
+            cur.execute('INSERT OR REPLACE INTO Billing (patientID, billingCode) VALUES(?, ?)', 
                         (health_num, billing_code))
             db.commit()
         except Exception as e:
@@ -332,51 +351,59 @@ class DatabaseController():
 #Misc Testing on the fly \/
 #"""
 
-data_controller = DatabaseController() 
-demo = Demographics.Demographics()
-demo.set_address('main st')
-demo.set_date_of_birth('Aug 7 1997')
-demo.set_family_history('Not good')
-data_controller.set_demographics(123, demo)
-#demo = data_controller.get_demographics(1151)
-#print(demo.get_address())
+#data_controller = DatabaseController() 
+#demo = Demographics.Demographics()
+#demo.set_address('main st')
+#demo.set_date_of_birth('Aug 7 1997')
+#demo.set_family_history('Not good')
+#data_controller.set_demographics(123, demo)
+##demo = data_controller.get_demographics(1151)
+##print(demo.get_address())
 
-fn = FullName()
-fn.set_given_name("David")
-fn.set_middle_names(["Lee"])
-fn.set_surname("Baesmintdwaellor")
-data_controller.set_name(123, fn)
-#data_controller.get_name(123)
+#fn = FullName()
+#fn.set_given_name("David")
+#fn.set_middle_names(["Lee"])
+#fn.set_surname("Baesmintdwaellor")
+#data_controller.set_name(123, fn)
+##data_controller.get_name(123)
 
-test_note = Note.Note()
-test_note.write_date(26, 'November', 2020)
-test_note.write_author(fn)
-test_note.write_body('My test note')
-data_controller.insert_note(123, test_note)
-#data_controller.get_notes(1111)
+#test_note = Note.Note()
+#test_note.write_date(26, 'November', 2020)
+#test_note.write_author(fn)
+#test_note.write_body('My test note')
+#data_controller.insert_note(123, test_note)
 
-new_med = Medication.Medication()
-new_med.set_scientific_name('lamotrigine')
-new_med_list = MedicationsList.MedicationsList()
-new_med_list.add_medication(new_med)
-data_controller.set_medications(123, new_med_list)
-#data_controller.get_medications(123)
+#test_note1 = Note.Note()
+#test_note1.write_date(25, 'November', 2019)
+#test_note1.write_author(fn)
+#test_note1.write_body('My SECOND test note')
+#data_controller.insert_note(123, test_note1)
+##data_controller.get_notes(1111)
 
-allergy_list = AllergyList.AllergyList()
-allergy = Allergy.Allergy('peanut', 'High')
-allergy1 = Allergy.Allergy('fish', 'High')
-allergy_list.add_allergy(allergy)
-allergy_list.add_allergy(allergy1)
-data_controller.set_allergies(123, allergy_list)
-#new_allergy_list = data_controller.get_allergies(123)
+#new_med = Medication.Medication()
+#new_med.set_scientific_name('lamotrigine')
+#new_med_list = MedicationsList.MedicationsList()
+#new_med_list.add_medication(new_med)
+#data_controller.set_medications(123, new_med_list)
+##data_controller.get_medications(123)
 
-data_controller.set_billing(123, 'samplebillingcode')
+#allergy_list = AllergyList.AllergyList()
+#allergy = Allergy.Allergy('peanut', 'High')
+#allergy1 = Allergy.Allergy('fish', 'High')
+#allergy_list.add_allergy(allergy)
+#allergy_list.add_allergy(allergy1)
+#data_controller.set_allergies(123, allergy_list)
+##new_allergy_list = data_controller.get_allergies(123)
 
-new_patient = data_controller.get_patient(123)
+#data_controller.set_billing(123, 'samplebillingcode')
 
-print(new_patient.get_billing())
-print(new_patient.get_drugs().get_list()[0].get_scientific_name())
-print(new_patient.profile['allergies'].get_allergies_to_string())
+#new_patient = data_controller.get_patient(123)
+
+#print(new_patient.get_billing())
+#print(new_patient.get_drugs().get_list()[0].get_scientific_name())
+#print(new_patient.profile['allergies'].get_allergies_to_string())
+#for note in new_patient.get_notes():
+#    print(note.toString())
 
 
 
