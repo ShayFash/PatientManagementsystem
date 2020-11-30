@@ -153,6 +153,11 @@ class DatabaseController():
         return list_of_notes
 
     def get_billing(self, health_num):
+        """
+        Returns patient's billing code
+        :param health_num: 9 digit int
+        :return str: billing code
+        """
         db = self.create_connection()
         cur = db.cursor()
         query = """
@@ -168,6 +173,11 @@ class DatabaseController():
         return values[0][0]
 
     def get_medications(self, health_num):
+        """
+        Returns MedicationList pertaining to patient
+        :param health_num: 9 digit int
+        :return MedicationList: MedicationList datatype
+        """
         db = self.create_connection()
         cur = db.cursor()
         query = """
@@ -188,6 +198,11 @@ class DatabaseController():
         return med_list
 
     def get_allergies(self, health_num):
+        """
+        Returns AllergyList correlated with the patient health number
+        :param health_num: 9 digit int
+        :return AllergyList: AllergyList object
+        """
         db = self.create_connection()
         cur = db.cursor()
         query = """
@@ -343,67 +358,5 @@ class DatabaseController():
         :param lab_work: a LabWork object containing the lab work data in question
         """
         return
-
-
-#"""
-#Misc Testing on the fly \/
-#"""
-
-#data_controller = DatabaseController() 
-#demo = Demographics.Demographics()
-#demo.set_address('main st')
-#demo.set_date_of_birth('Aug 7 1997')
-#demo.set_family_history('Not good')
-#data_controller.set_demographics(123, demo)
-##demo = data_controller.get_demographics(1151)
-##print(demo.get_address())
-
-#fn = FullName()
-#fn.set_given_name("David")
-#fn.set_middle_names(["Lee"])
-#fn.set_surname("Baesmintdwaellor")
-#data_controller.set_name(123, fn)
-##data_controller.get_name(123)
-
-#test_note = Note.Note()
-#test_note.write_date(26, 'November', 2020)
-#test_note.write_author(fn)
-#test_note.write_body('My test note')
-#data_controller.insert_note(123, test_note)
-
-#test_note1 = Note.Note()
-#test_note1.write_date(25, 'November', 2019)
-#test_note1.write_author(fn)
-#test_note1.write_body('My SECOND test note')
-#data_controller.insert_note(123, test_note1)
-##data_controller.get_notes(1111)
-
-#new_med = Medication.Medication()
-#new_med.set_scientific_name('lamotrigine')
-#new_med_list = MedicationsList.MedicationsList()
-#new_med_list.add_medication(new_med)
-#data_controller.set_medications(123, new_med_list)
-##data_controller.get_medications(123)
-
-#allergy_list = AllergyList.AllergyList()
-#allergy = Allergy.Allergy('peanut', 'High')
-#allergy1 = Allergy.Allergy('fish', 'High')
-#allergy_list.add_allergy(allergy)
-#allergy_list.add_allergy(allergy1)
-#data_controller.set_allergies(123, allergy_list)
-##new_allergy_list = data_controller.get_allergies(123)
-
-#data_controller.set_billing(123, 'samplebillingcode')
-
-#new_patient = data_controller.get_patient(123)
-
-#print(new_patient.get_billing())
-#print(new_patient.get_drugs().get_list()[0].get_scientific_name())
-#print(new_patient.profile['allergies'].get_allergies_to_string())
-#for note in new_patient.get_notes():
-#    print(note.toString())
-
-
-
 
 
