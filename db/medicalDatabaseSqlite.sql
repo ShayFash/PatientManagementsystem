@@ -1,5 +1,5 @@
 --
--- File generated with SQLiteStudio v3.2.1 on Fri Nov 27 16:21:14 2020
+-- File generated with SQLiteStudio v3.2.1 on Sun Nov 29 23:30:53 2020
 --
 -- Text encoding used: UTF-8
 --
@@ -8,7 +8,7 @@ BEGIN TRANSACTION;
 
 -- Table: Allergies
 DROP TABLE IF EXISTS Allergies;
-CREATE TABLE Allergies (allergyEntryID INT PRIMARY KEY, patientID INT NOT NULL, item TEXT, severityDescription TEXT, scientificName TEXT);
+CREATE TABLE Allergies (allergyEntryID INT PRIMARY KEY, patientID INT NOT NULL, item TEXT, severity_description TEXT, medical_name TEXT);
 
 -- Table: Billing
 DROP TABLE IF EXISTS Billing;
@@ -129,7 +129,13 @@ CREATE TABLE Names (patientID INT PRIMARY KEY NOT NULL, givenName TEXT, middleNa
 
 -- Table: Note
 DROP TABLE IF EXISTS Note;
-CREATE TABLE Note (patientID INT PRIMARY KEY NOT NULL, date TEXT, author TEXT, body TEXT);
+CREATE TABLE Note (
+    noteEntryID INT  PRIMARY KEY,
+    patientID   INT  NOT NULL,
+    date        TEXT,
+    author      TEXT,
+    body        TEXT
+);
 
 -- Table: Nurse
 DROP TABLE IF EXISTS Nurse;
