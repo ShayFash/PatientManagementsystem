@@ -1,6 +1,5 @@
 from PatientProfile import *
-from Allergies import *
-import Demographics, Labwork, Medication, MedicationsList, Names, Note
+import Demographics, Labwork, Medication, MedicationsList, Names, Note, Allergy, AllergyList
 import sqlite3
 
 class DatabaseController():
@@ -45,11 +44,13 @@ class DatabaseController():
         #insert health_num as first value in query (It is always the primary key)
         values.insert(0, health_num)
         #Execute the query
-        try:
-            cur.execute('INSERT OR REPLACE INTO '+table_name+' (patientID, '+keys+') VALUES ('+question_marks+')', values)
-            db.commit()
-        except Exception as e:
-            print(e)
+        #try:
+        #    cur.execute('INSERT OR REPLACE INTO '+table_name+' (patientID, '+keys+') VALUES ('+question_marks+')', values)
+        #    db.commit()
+        #except Exception as e:
+        #    print(e)
+        cur.execute('INSERT OR REPLACE INTO '+table_name+' (patientID, '+keys+') VALUES ('+question_marks+')', values)
+        db.commit()
         #finishing up
         cur.close()
         db.close()
@@ -182,10 +183,10 @@ class DatabaseController():
         except Exception as e:
             print(e)
         values = cur.fetchall()
-        allergy_list = AllergyList()
+        allergy_list = AllergyList.AllergyList()
         for allergy in values:
-            new_allergy = Allergy(allergy[2], allergy[3])
-            allergy_list.addAllergy(new_allergy)
+            new_allergy = Allergy.Allergy(allergy[2], allergy[3])
+            allergy_list.add_allergy(new_allergy)
         db.close()
         return allergy_list
 
@@ -313,7 +314,7 @@ class DatabaseController():
             print(e)
 
         #Then replace with the updated List
-        for allergy in allergies.allergylist['allergies']:
+        for allergy in allergies.allergy_list['allergies']:
             self.post_row(health_num, 'Allergies', allergy.allergy)
 
 
@@ -361,17 +362,21 @@ new_med_list.add_medication(new_med)
 data_controller.set_medications(123, new_med_list)
 #data_controller.get_medications(123)
 
-allergy_list = AllergyList()
-allergy = Allergy('peanut', 'High')
-allergy1 = Allergy('fish', 'High')
-allergy_list.addAllergy(allergy)
-allergy_list.addAllergy(allergy1)
+allergy_list = AllergyList.AllergyList()
+allergy = Allergy.Allergy('peanut', 'High')
+allergy1 = Allergy.Allergy('fish', 'High')
+allergy_list.add_allergy(allergy)
+allergy_list.add_allergy(allergy1)
 data_controller.set_allergies(123, allergy_list)
 #new_allergy_list = data_controller.get_allergies(123)
 
 data_controller.set_billing(123, 'samplebillingcode')
 
 new_patient = data_controller.get_patient(123)
+
+print(new_patient.get_billing())
+print(new_patient.get_drugs().get_list()[0].get_scientific_name())
+print(new_patient.profile['allergies'].get_allergies_to_string())
 
 
 
