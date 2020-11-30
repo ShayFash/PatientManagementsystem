@@ -9,38 +9,6 @@ class Demographics(object):
         """
         self.demographics = {}
 
-    # TODO:
-    def set_allergies(self, allergies):
-        """
-        set patient allergies
-        :param: allergies
-        """
-        self.demographics['allergies'] = allergies
-
-    # TODO: 
-    def set_medications(self, medications):
-        """
-        Set patient name in the Demographics
-        :params: FullName object
-        """
-        self.demographics['medications'] = medications
-
-    # TODO:
-    def get_allergies(self):
-        """
-        Get patient's allergies
-        :return: 
-        """
-        return self.demographics['allergies']
-
-    # TODO:
-    def get_medications(self):
-        """
-        Get patient's medications
-        :return:
-        """
-        return self.demographics['medications']
-
     def set_name(self, name:FullName):
         """
         Set patient name in the Demographics
@@ -112,4 +80,3 @@ class Demographics(object):
         return self.demographics['medicalConditions']
        
     
-

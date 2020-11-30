@@ -11,8 +11,8 @@ class Allergy(object):
         """
         self.allergy = {
             'item': name,
-            'severity description': severity,
-            'medical name': medical_name
+            'severity_description': severity,
+            'medical_name': medical_name
         }
 
     def get_item(self):
@@ -25,15 +25,15 @@ class Allergy(object):
         """
         :return: the allergy severity description string.
         """
-        return self.allergy['severity description']
+        return self.allergy['severity_description']
 
     def get_medical_name(self):
         """
         :pre-conditions: allergy must have a medical name.
         :return: scientific string name of the medicine allergy.
         """
-        assert(self.allergy['medical name'] is not None)
-        return self.allergy['medical name']
+        assert(self.allergy['medical_name'] is not None)
+        return self.allergy['medical_name']
 
     def __eq__(self, other):
         """
