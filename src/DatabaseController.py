@@ -44,13 +44,11 @@ class DatabaseController():
         #insert health_num as first value in query (It is always the primary key)
         values.insert(0, health_num)
         #Execute the query
-        #try:
-        #    cur.execute('INSERT OR REPLACE INTO '+table_name+' (patientID, '+keys+') VALUES ('+question_marks+')', values)
-        #    db.commit()
-        #except Exception as e:
-        #    print(e)
-        cur.execute('INSERT OR REPLACE INTO '+table_name+' (patientID, '+keys+') VALUES ('+question_marks+')', values)
-        db.commit()
+        try:
+            cur.execute('INSERT OR REPLACE INTO '+table_name+' (patientID, '+keys+') VALUES ('+question_marks+')', values)
+            db.commit()
+        except Exception as e:
+            print(e)
         #finishing up
         cur.close()
         db.close()
@@ -93,9 +91,9 @@ class DatabaseController():
         names = cur.fetchall()
         db.close()
         fn = FullName()
-        fn.set_given_name = names[0][0]
-        fn.set_middle_names = names[0][1]
-        fn.set_surname = names[0][2]
+        fn.set_given_name(names[0][0])
+        fn.set_middle_names([names[0][1]])
+        fn.set_surname(names[0][2])
         return fn
 
     def get_demographics(self, health_num):
