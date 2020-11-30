@@ -1,13 +1,86 @@
 body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+        'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+        sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    background-color: gray;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.homeContainer {
+    font: 14px "Century Gothic", Futura, sans-serif;
+    margin-top: 5%;
+    margin-bottom: 5%;
+    margin-left: 10%;
+    margin-right: 10%;
+    text-align: center;
+    background-color: goldenrod;
+}
+
+.horizontalDivider {
+    width: 10%; /*Should be editted in-line to desired width*/
+    height: auto;
+    display: inline-block
+}
+
+.verticalDivider {
+    width: auto;
+    height: 10%; /*Should be editted in-line to desired height*/
+    display: inline-block
+}
+
+/* Demographics */
+
+.demographics {
+    text-align: left;
+    padding-top: 1%;
+    padding-bottom: 1%;
+    padding-left: 2%;
+}
+
+/* Navbar */
+
+.navBar {
+    background-color: rgb(179, 137, 33);
+    margin: 0px;
+    padding: 0px;
+    padding-left: 20px;
+    display: flex;
+}
+
+.navBarButton {
+    background-color:rgb(155, 118, 23);
+    border: none;
+    color: white;
+    margin: 0px;
+    padding: 15px;
+    text-align: center;
+    text-decoration: none;
+    box-sizing: border-box;
+    display: inline-block;
+    font-size: 16px;
+  }
+
+  .navBarButton:hover {
+    background-color: rgb(221, 170, 39);
+    cursor: pointer;
+  }
+
+/* Login Screen */
+.loginBox {
+    /* textteAlign: "center", marginTop: "20%", backgroundColor: "white", margin: "300px"} */
+    text-align: center;
+    margin-top: 20%;
+    background-color: white;
+    margin-left: 30%;
+    margin-right: 30%;
+    height: 200px;
+}
+
+/* Search */

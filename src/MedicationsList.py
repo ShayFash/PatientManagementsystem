@@ -1,5 +1,6 @@
 from Medication import *
 
+
 class MedicationsList:
 
     def __init__(self):
@@ -11,7 +12,7 @@ class MedicationsList:
     def add_medication(self, medication: Medication):
         self.medications.append(medication)
 
-    def remove_medication (self, medication:Medication):
+    def remove_medication(self, medication: Medication):
         """
         This method search the medication to be removed from the list and then remove
         :param medication:
@@ -30,4 +31,3 @@ class MedicationsList:
         :return: None
         """
         self.medications.clear()
-
