@@ -26,8 +26,7 @@ test_note1.write_author(fn)
 test_note1.write_body('My SECOND test note')
 data_controller.insert_note(123, test_note1)
 
-new_med = Medication.Medication()
-new_med.set_scientific_name('acetaminophen')
+new_med = Medication.Medication('abc123', 'acetaminophen', 'n-(4-hydroxyphenyl)acetamide', 'tylenol', 'idk')
 new_med_list = MedicationsList.MedicationsList()
 new_med_list.add_medication(new_med)
 data_controller.set_medications(123, new_med_list)
@@ -41,7 +40,13 @@ data_controller.set_allergies(123, allergy_list)
 
 data_controller.set_billing(123, 'samplebillingcode')
 
-new_patient = data_controller.get_patient(123)
+
+
+new_patient1 = data_controller.get_patient(123)
+data_controller.overwrite_patient(9123, new_patient1)
+new_patient = data_controller.get_patient(9123)
+
+
 
 def test_database_controller_get_name():
     assert new_patient.get_name().get_full_name_to_string() == 'David Lee Baesmintdwaellor'
@@ -53,7 +58,7 @@ def test_database_controller_get_billing():
     assert new_patient.get_billing() == 'samplebillingcode'
 
 def test_database_controller_get_medications():
-    assert new_patient.get_drugs().get_list()[0].get_scientific_name() == 'acetaminophen'
+    assert print(new_patient.get_drugs().get_list()[0]) == print(new_patient1.get_drugs().get_list()[0])
     
 def test_database_controller_get_allergies():
     assert new_patient.profile['allergies'].get_allergies_to_string() == 'peanut, fish'

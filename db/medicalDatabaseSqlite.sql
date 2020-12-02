@@ -1,5 +1,5 @@
 --
--- File generated with SQLiteStudio v3.2.1 on Sun Nov 29 23:30:53 2020
+-- File generated with SQLiteStudio v3.2.1 on Wed Dec 2 15:18:21 2020
 --
 -- Text encoding used: UTF-8
 --
@@ -121,7 +121,7 @@ CREATE TABLE MedicalSecretary (
 
 -- Table: MedicationEntry
 DROP TABLE IF EXISTS MedicationEntry;
-CREATE TABLE MedicationEntry (medicationEntryID INTEGER PRIMARY KEY, patientID INTEGER NOT NULL, icd10 TEXT, scientific_name TEXT NOT NULL, FOREIGN KEY (patientID) REFERENCES Patient (patientID));
+CREATE TABLE MedicationEntry (medicationEntryID INTEGER PRIMARY KEY, patientID INTEGER NOT NULL, id TEXT, scientific_name TEXT, medicine_name TEXT, chemical_name TEXT, synonym, suppress TEXT, FOREIGN KEY (patientID) REFERENCES Patient (patientID));
 
 -- Table: Names
 DROP TABLE IF EXISTS Names;
