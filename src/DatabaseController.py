@@ -65,7 +65,7 @@ class DatabaseController():
         patient_dict['demographics'] = self.get_demographics(health_num)
         patient_dict['notes'] = self.get_notes(health_num)          
         patient_dict['billing_code'] = self.get_billing(health_num)
-        patient_dict['medications'] = self.get_medications(health_num)
+        patient_dict['medications'] = None #self.get_medications(health_num)
         patient_dict['allergies'] = self.get_allergies(health_num)
         patient_dict['lab_work'] = None
         #Construct PatientProfile w/ dictionary
@@ -228,19 +228,19 @@ class DatabaseController():
         :param health_num: a 9-digit integer health number corresponding to patient 
         :param PatientProfile: A PatientProfile object containing the new patient information
         """
-        set_name(health_num, patient.profile['name'])
+        self.set_name(health_num, patient.profile['name'])
         if patient.profile['demographics'] != None:
-            set_demographics(health_num, patient.profile['demographics'])
+            self.set_demographics(health_num, patient.profile['demographics'])
         for note in patient.profile['notes']:
-            insert_note(health_num)
+            self.insert_note(health_num, note)
         if patient.profile['billing_code'] != None:
-            set_billing(health_num, patient.profile['billing_code'])
-        if patient.profile['drugs'] != None:
-            set_medications(health_num, patient.profile['drugs'])
+            self.set_billing(health_num, patient.profile['billing_code'])
+        #if patient.profile['drugs'] != None:
+            #set_medications(health_num, patient.profile['drugs'])
         if patient.profile['allergies'] != None:
-            set_allergies(health_num, patient.profile['allergies'])
+            self.set_allergies(health_num, patient.profile['allergies'])
         if patient.profile['lab_work'] != None:
-            set_lab_work(health_num, patient.profile['lab_work'])
+            self.set_lab_work(health_num, patient.profile['lab_work'])
     
     def set_name(self, health_num, fullname: FullName):
         """
