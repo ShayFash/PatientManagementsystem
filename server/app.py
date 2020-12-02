@@ -1,7 +1,8 @@
 # === Module Import Statements ===
 
 import json
-import PatientProfile, Demographics, Names, Note
+from PatientProfile import *
+import Demographics, Names, Note, DatabaseController, Medication, MedicationsList, Allergy, AllergyList, Labwork
 from flask import Flask, request, jsonify
 
 # === Other Class Import Statements ===
@@ -14,6 +15,8 @@ from flask import Flask, request, jsonify
 # == Flask ==
 
 app = Flask(__name__)
+
+db_controller = DatabaseController.DatabaseController()
 
 # == Application ==
 
@@ -41,32 +44,32 @@ def login_user():
 #I am currently developing, does not exist in this context - Sam
 
 @app.route('/post/set_medications', methods=['POST'])
-def set_medications(health_num, medication_list: MedicationList):
+def set_medications(health_num, medication_list: MedicationsList.MedicationsList):
     """
     Writes/Replaces the provided medication list into the database for the patient.
     :param health_num: a 9-digit integer health number corresponding to patient 
     param medication_list: a MedicationList object
     """
-    DatabaseController.set_medication(health_num, medication_list)
+    db_controller.set_medication(health_num, medication_list)
 
 @app.route('/post/set_demographics', methods=['POST'])
-def set_demographics(health_num, demographics: Demographics):
+def set_demographics(health_num, demographics: Demographics.Demographics):
     """
     Writes the information from the provided Demographics object into the database
     for the given health_num
     :param health_num: a 9-digit integer health number corresponding to patient 
     :param demographics: a Demographics object containing patient information
     """
-    DatabaseController.set_demographics(health_num, demographics)
+    db_controller.set_demographics(health_num, demographics)
 
 @app.route('/post/set_allergies', methods=['POST'])
-def set_allergies(health_num, allergies: Allergies):
+def set_allergies(health_num, allergies: AllergyList.AllergyList):
     """
     Writes/Replaces the allergies list into the database for the specified patient
     :param health_num: a 9-digit integer health number corresponding to patient
     :param allergies: an Allergies object already containing allergy information
     """
-    DatabaseController.set_allergies(health_num, allergies)
+    db_controller.set_allergies(health_num, allergies)
 
 @app.route('/post/set_lab_work', methods=['POST'])
 def set_lab_work(health_num, lab_work: Labwork):
@@ -75,7 +78,7 @@ def set_lab_work(health_num, lab_work: Labwork):
     :param health_num: a 9-digit integer health number corresponding to patient 
     :param lab_work: a LabWork object containing the lab work data in question
     """
-    DatabaseController.set_lab_work(health_num, lab_work)
+    db_controller.set_lab_work(health_num, lab_work)
 
 @app.route('/post/set_billing', methods=['POST'])
 def set_billing(health_num, billing_code: str):
@@ -84,19 +87,19 @@ def set_billing(health_num, billing_code: str):
     :param health_num: a patient's health number
     :param billing_code: a String representing patient's billing code. 
     """
-    DatabaseController.overwrite_billing(health_num, billing_code)
+    db_controller.overwrite_billing(health_num, billing_code)
 
 @app.route('/post/append_note', methods=['POST'])
-def append_note(health_num, note: Note):
+def append_note(health_num, note: Note.Note):
     """
     append a note to a patients profile in the database
     :param health_num: the health number of the patient in question
     :param note: a Note object to be inserted
     """
-    DatabaseController.insert_note(health_num, note)
+    db_controller.insert_note(health_num, note)
 
 @app.route('/post/create_patient', methods=['POST'])
-def create_patient_profile(health_num, full_name: FullName, demographics: Demographics):
+def create_patient_profile(health_num, full_name: FullName, demographics: Demographics.Demographics):
     """
     create a patient profile and pass it on to the database
     :param health_num: patient's health number
@@ -104,7 +107,7 @@ def create_patient_profile(health_num, full_name: FullName, demographics: Demogr
     :param demographics: demographics object containing new patient's demographics
     """
     patient = PatientProfile(full_name, demographics)
-    DatabaseController.overwrite_patient(health_num, patient)
+    db_controller.overwrite_patient(health_num, patient)
 
 # == Get ==
 
@@ -115,7 +118,7 @@ def get_patient(health_num):
     :param health_num: patient's health number
     :return: PatientProfile object
     """
-    return DatabaseController.get_patient(health_num)
+    return db_controller.get_patient(health_num)
     
 
 @app.route('/get/categories', methods=["GET"])
