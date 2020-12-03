@@ -65,7 +65,7 @@ class DatabaseController():
         patient_dict['demographics'] = self.get_demographics(health_num)
         patient_dict['notes'] = self.get_notes(health_num)          
         patient_dict['billing_code'] = self.get_billing(health_num)
-        patient_dict['medications'] = None #self.get_medications(health_num)
+        patient_dict['medications'] = self.get_medications(health_num)
         patient_dict['allergies'] = self.get_allergies(health_num)
         patient_dict['lab_work'] = None
         #Construct PatientProfile w/ dictionary
@@ -181,7 +181,7 @@ class DatabaseController():
         db = self.create_connection()
         cur = db.cursor()
         query = """
-            SELECT scientific_name FROM MedicationEntry
+            SELECT * FROM MedicationEntry
             WHERE patientID = ?
         """
         try:
@@ -191,8 +191,9 @@ class DatabaseController():
         values = cur.fetchall()
         med_list = MedicationsList.MedicationsList()
         for med in values:
-            new_med = Medication.Medication()
-            new_med.set_scientific_name(med[0])
+            print(med)
+            new_med = Medication.Medication(med[2], med[4], med[5], med[6], med[7])
+            new_med.set_scientific_name(med[3])
             med_list.add_medication(new_med)
         db.close()
         return med_list
@@ -229,18 +230,19 @@ class DatabaseController():
         :param PatientProfile: A PatientProfile object containing the new patient information
         """
         self.set_name(health_num, patient.profile['name'])
-        if patient.profile['demographics'] != None:
-            self.set_demographics(health_num, patient.profile['demographics'])
+
+        self.set_demographics(health_num, patient.profile['demographics'])
+
         for note in patient.profile['notes']:
             self.insert_note(health_num, note)
-        if patient.profile['billing_code'] != None:
-            self.set_billing(health_num, patient.profile['billing_code'])
-        #if patient.profile['drugs'] != None:
-            #set_medications(health_num, patient.profile['drugs'])
-        if patient.profile['allergies'] != None:
-            self.set_allergies(health_num, patient.profile['allergies'])
-        if patient.profile['lab_work'] != None:
-            self.set_lab_work(health_num, patient.profile['lab_work'])
+ 
+        self.set_billing(health_num, patient.profile['billing_code'])
+
+        self.set_medications(health_num, patient.profile['drugs'])
+
+        self.set_allergies(health_num, patient.profile['allergies'])
+
+        #self.set_lab_work(health_num, patient.profile['lab_work'])
     
     def set_name(self, health_num, fullname: FullName):
         """
@@ -273,7 +275,8 @@ class DatabaseController():
         """
         db = self.create_connection()
         cur = db.cursor()
-        cur.execute("INSERT INTO Note (patientID, date, author, body) VALUES (?, ?, ?, ?)", (health_num, note.get_date(), note.get_author(), note.get_body()))
+        cur.execute("INSERT INTO Note (patientID, date, author, body) VALUES (?, ?, ?, ?)", 
+                    (health_num, note.get_date(), note.get_author(), note.get_body()))
         cur.close()
         db.commit()
         db.close()
@@ -320,8 +323,8 @@ class DatabaseController():
         #Then replace with the updated List
         for drug in medication_list.medications:
             try:
-                cur.execute('INSERT INTO MedicationEntry(patientID, scientific_name) VALUES(?, ?)',
-                            (health_num, drug.get_scientific_name()))
+                cur.execute("""INSERT INTO MedicationEntry(patientID, id, medicine_name, chemical_name, synonym, suppress) 
+                VALUES(?, ?, ?, ?, ?, ?)""", (health_num, drug.id, drug.medicine_name, drug.chemical_name, drug.synonym, drug.suppress))
                 db.commit()
             except Exception as e:
                 print(e)
