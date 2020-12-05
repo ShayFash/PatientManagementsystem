@@ -1,9 +1,16 @@
 # === Module Import Statements ===
 
 import json
-from PatientProfile import *
-import Demographics, Names, Note, DatabaseController, Medication, MedicationsList, Allergy, AllergyList, Labwork
+
 from flask import Flask, request, jsonify
+
+import AllergyList
+import DatabaseController
+import Demographics
+import Labwork
+import MedicationsList
+import Note
+from PatientProfile import *
 
 # === Other Class Import Statements ===
 
@@ -18,30 +25,31 @@ app = Flask(__name__)
 
 db_controller = DatabaseController.DatabaseController()
 
+
 # == Application ==
 
 # === Routes ===
 
 # == Post ==
 
-@app.route('/post/login_user/', methods=["POST"])
-def login_user():
-    response = request.get_json()
-    print_response_json(response)
-    
-    response_as_dict = convert_json_to_dict(response)
-    # user_profile = queries.getUserByUsername(conn, response_as_dict)
-    isPasswordValid = passwordHash.verifyPassword(user_profile["password"], json_as_dict["password"])
-    print(isPasswordValid)
-    
-    if (isPasswordValid):
-        return jsonify(user_profile["userID"])
-        return
+# @app.route('/post/login_user/', methods=["POST"])
+# def login_user():
+#     response = request.get_json()
+#     print_response_json(response)
+#
+#     response_as_dict = convert_json_to_dict(response)
+#     # user_profile = queries.getUserByUsername(conn, response_as_dict)
+#     isPasswordValid = passwordHash.verifyPassword(user_profile["password"], json_as_dict["password"])
+#     print(isPasswordValid)
+#
+#     if (isPasswordValid):
+#         return jsonify(user_profile["userID"])
+#         return
+#
+#     return jsonify("Received post/register_user")
 
-    return jsonify("Received post/register_user")
-
-#NOTE: The following patient specific methods rely on DatabaseController in which
-#I am currently developing, does not exist in this context - Sam
+# NOTE: The following patient specific methods rely on DatabaseController in which
+# I am currently developing, does not exist in this context - Sam
 
 @app.route('/post/set_medications', methods=['POST'])
 def set_medications(health_num, medication_list: MedicationsList.MedicationsList):
@@ -51,6 +59,7 @@ def set_medications(health_num, medication_list: MedicationsList.MedicationsList
     param medication_list: a MedicationList object
     """
     db_controller.set_medication(health_num, medication_list)
+
 
 @app.route('/post/set_demographics', methods=['POST'])
 def set_demographics(health_num, demographics: Demographics.Demographics):
@@ -62,6 +71,7 @@ def set_demographics(health_num, demographics: Demographics.Demographics):
     """
     db_controller.set_demographics(health_num, demographics)
 
+
 @app.route('/post/set_allergies', methods=['POST'])
 def set_allergies(health_num, allergies: AllergyList.AllergyList):
     """
@@ -70,6 +80,7 @@ def set_allergies(health_num, allergies: AllergyList.AllergyList):
     :param allergies: an Allergies object already containing allergy information
     """
     db_controller.set_allergies(health_num, allergies)
+
 
 @app.route('/post/set_lab_work', methods=['POST'])
 def set_lab_work(health_num, lab_work: Labwork):
@@ -80,6 +91,7 @@ def set_lab_work(health_num, lab_work: Labwork):
     """
     db_controller.set_lab_work(health_num, lab_work)
 
+
 @app.route('/post/set_billing', methods=['POST'])
 def set_billing(health_num, billing_code: str):
     """
@@ -89,6 +101,7 @@ def set_billing(health_num, billing_code: str):
     """
     db_controller.overwrite_billing(health_num, billing_code)
 
+
 @app.route('/post/append_note', methods=['POST'])
 def append_note(health_num, note: Note.Note):
     """
@@ -97,6 +110,7 @@ def append_note(health_num, note: Note.Note):
     :param note: a Note object to be inserted
     """
     db_controller.insert_note(health_num, note)
+
 
 @app.route('/post/create_patient', methods=['POST'])
 def create_patient_profile(health_num, full_name: FullName, demographics: Demographics.Demographics):
@@ -109,6 +123,7 @@ def create_patient_profile(health_num, full_name: FullName, demographics: Demogr
     patient = PatientProfile(full_name, demographics)
     db_controller.overwrite_patient(health_num, patient)
 
+
 # == Get ==
 
 @app.route('/get/patient', methods=['GET'])
@@ -119,13 +134,14 @@ def get_patient(health_num):
     :return: PatientProfile object
     """
     return db_controller.get_patient(health_num)
-    
 
-@app.route('/get/categories', methods=["GET"])
-def get_categories():
-    # categories = queries.getCategoriesAsJsons(conn)
 
-    return categories
+# @app.route('/get/categories', methods=["GET"])
+# def get_categories():
+#     # categories = queries.getCategoriesAsJsons(conn)
+#
+#     return categories
+
 
 # == Flask Helpers ==
 
@@ -143,6 +159,7 @@ def convert_json_to_dict(json_to_convert):
     json_as_dict = json.loads(json_as_str)
     return json_as_dict
 
+
 def print_response_json(json_to_print):
     json_as_dict = convert_json_to_dict(json_to_print)
     print(json_as_dict)
@@ -151,6 +168,5 @@ def print_response_json(json_to_print):
 # === Main ===
 
 if __name__ == '__main__':
-
     # app.run()
     app.run(debug=True)
