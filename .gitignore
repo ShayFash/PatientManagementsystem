@@ -10,6 +10,7 @@
 /src/react-components/node_modules
 /server/__pycache__
 /.idea
+/.vscode
 /.vs
 /group3.sln
 /group3.pyproj
