@@ -111,7 +111,9 @@ def get_allergies(conn, patient_id):
 
 def overwrite_patient(conn, response_dict):
     """
-    
+    Overwrites or writes a patient's demographics into the database.
+    :param conn: Database connection.
+    :param response_dict: A JSON converted to a dictionary from "/post/create_patient"
     """
     patient_sql = (response_dict["federalHealthID"], response_dict["provinceID"], response_dict["name"],
                    response_dict["genderID"], response_dict["dateOfBirth"], response_dict["age"],
@@ -126,7 +128,9 @@ def overwrite_patient(conn, response_dict):
 
 def insert_note(conn, response_dict):
     """
-
+    Appends a note into the database.
+    :param conn: Database connection.
+    :param response_dict: A JSON converted to a dictionary from "/post/append_note"
     """
     note_sql = (response_dict["patientID"], response_dict["author"], response_dict["body"])
     sql = '''   INSERT INTO Note(patientID, date, author, body)
@@ -138,7 +142,9 @@ def insert_note(conn, response_dict):
 
 def overwrite_billing(conn, response_dict):
     """
-
+    Appends a billing entry into the database.
+    :param conn: Database connection.
+    :param response_dict: A JSON converted to a dictionary from "/post/set_billing"
     """
     billing_sql = (response_dict["patientID"], response_dict["medicalSecretaryID"], response_dict["billingCode"])
     sql = '''   INSERT INTO Billing(patientID, datetime, medicalSecretaryID, billingCode)
@@ -150,7 +156,9 @@ def overwrite_billing(conn, response_dict):
 
 def set_lab_work(conn, response_dict):
     """
-
+    Appends a lab work entry into the database.
+    :param conn: Database connection.
+    :param response_dict: A JSON converted to a dictionary from "/post/set_lab_work"
     """
     lab_work_sql = (response_dict["patientID"], response_dict["testTypeID"])
     sql = '''   INSERT INTO LabTest(patientID, testTypeID)
@@ -162,7 +170,9 @@ def set_lab_work(conn, response_dict):
 
 def set_allergies(conn, response_dict):
     """
-
+    Appends an allergies entry into the database.
+    :param conn: Database connection.
+    :param response_dict: A JSON converted to a dictionary from "/post/set_allergies"
     """
     allergies_sql = (response_dict["patientID"], response_dict["item"], response_dict["severity_description"],
                      response_dict["medical_name"])
@@ -175,7 +185,9 @@ def set_allergies(conn, response_dict):
 
 def set_medication(conn, response_dict):
     """
-
+    Appends a medication entry into the database.
+    :param conn: Database connection.
+    :param response_dict: A JSON converted to a dictionary from "/post/set_medications"
     """
     medication_sql = (response_dict["patientID"], response_dict["id"], response_dict["scientific_name"],
                       response_dict["medicine_name"], response_dict["chemical_name"], response_dict["synonym"],
