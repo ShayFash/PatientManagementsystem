@@ -7,6 +7,8 @@
 /.vs/ProjectSettings.json
 /.vs/group3/v16/.suo
 /src/__pycache__
+/src/react-components/node_modules
+/server/__pycache__
 /.idea
 /.vs
 /group3.sln
