@@ -3,6 +3,9 @@ import json as json
 import sqlite3
 
 
+# == Read ==
+
+
 def get_patient_demographics(conn, health_number):
     """
     Returns all demographics information relating to a health number.
@@ -19,3 +22,84 @@ def get_patient_demographics(conn, health_number):
         return row
     except TypeError:
         return False
+
+
+# == Write ==
+
+
+def overwrite_patient(conn, response_dict):
+    """
+
+    """
+    patient_sql = (response_dict["federalHealthID"], response_dict["provinceID"], response_dict["name"],
+                   response_dict["genderID"], response_dict["dateOfBirth"], response_dict["age"],
+                   response_dict["temp"], response_dict["address"], response_dict["familyHistory"],
+                   response_dict["medicalConditions"])
+    sql = '''   INSERT OR REPLACE INTO Patient(federalHealthID, provinceID, name, genderID, dateOfBirth, age, temp, address, familyHistory, medicalConditions)
+                VALUES(?,?,?,?,?,?,?,?,?,?)'''
+    cur = conn.cursor()
+    cur.execute(sql, patient_sql)
+    conn.commit()
+
+
+def insert_note(conn, response_dict):
+    """
+
+    """
+    note_sql = (response_dict["patientID"], response_dict["author"], response_dict["body"])
+    sql = '''   INSERT INTO Note(patientID, date, author, body)
+                VALUES(?,date('now'),?,?)'''
+    cur = conn.cursor()
+    cur.execute(sql, note_sql)
+    conn.commit()
+
+
+def overwrite_billing(conn, response_dict):
+    """
+
+    """
+    billing_sql = (response_dict["patientID"], response_dict["medicalSecretaryID"], response_dict["billingCode"])
+    sql = '''   INSERT INTO Billing(patientID, datetime, medicalSecretaryID, billingCode)
+                VALUES(?,datetime('now'),?,?)'''
+    cur = conn.cursor()
+    cur.execute(sql, billing_sql)
+    conn.commit()
+
+
+def set_lab_work(conn, response_dict):
+    """
+
+    """
+    lab_work_sql = (response_dict["patientID"], response_dict["testTypeID"])
+    sql = '''   INSERT INTO LabTest(patientID, testTypeID)
+                VALUES(?,?)'''
+    cur = conn.cursor()
+    cur.execute(sql, lab_work_sql)
+    conn.commit()
+
+
+def set_allergies(conn, response_dict):
+    """
+
+    """
+    allergies_sql = (response_dict["patientID"], response_dict["item"], response_dict["severity_description"],
+                     response_dict["medical_name"])
+    sql = '''   INSERT INTO Allergies(patientID, item, severity_description, medical_name)
+                VALUES(?,?,?,?)'''
+    cur = conn.cursor()
+    cur.execute(sql, allergies_sql)
+    conn.commit()
+
+
+def set_medications(conn, response_dict):
+    """
+
+    """
+    medication_sql = (response_dict["patientID"], response_dict["id"], response_dict["scientific_name"],
+                      response_dict["medicine_name"], response_dict["chemical_name"], response_dict["synonym"],
+                      response_dict["suppress"])
+    sql = '''   INSERT INTO MedicationEntry(patientID, id, scientific_name, medicine_name, chemical_name, synonym, suppress)
+                VALUES(?,?,?,?,?,?,?)'''
+    cur = conn.cursor()
+    cur.execute(sql, medication_sql)
+    conn.commit()
