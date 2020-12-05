@@ -34,24 +34,22 @@ db_connection = DatabaseConnection.create_connection()
 
 # == Post ==
 
-# NOTE: The following patient specific methods rely on DatabaseController in which
-# I am currently developing, does not exist in this context - Sam
-
 
 @app.route('/post/set_medications', methods=['POST'])
-def set_medications():
+def set_medication():
     """
-    Writes/Replaces the provided medication list into the database for the patient.
-    :param health_num: a 9-digit integer health number corresponding to patient
-    param medication_list: a MedicationList object
+    Writes the provided medication into the database for the patient.
+    Input: A JSON containing the following keys
+    patientID, id, scientific_name, medicine_name, chemical_name, synonym, suppress
+    :return: The JSON that was provided to the POST request to confirm.
     """
     response = request.get_json()
     response_dict = convert_json_to_dict(response)
-    DatabaseController.set_medications(db_connection, response_dict)
+    DatabaseController.set_medication(db_connection, response_dict)
     print_response_json(response)
     return response
 
-# !!! Hey, this is just the same as create_patient()
+# !!! Hey, this is just the same as create_patient(). We're probably never going to make new patients anyway.
 # @app.route('/post/set_demographics', methods=['POST'])
 # def set_demographics():
 #     """
@@ -71,8 +69,9 @@ def set_medications():
 def set_allergies():
     """
     Writes/Replaces the allergies list into the database for the specified patient
-    :param health_num: a 9-digit integer health number corresponding to patient
-    :param allergies: an Allergies object already containing allergy information
+    Input: A JSON containing the following keys
+    patientID, item, severity_description, medical_name
+    :return: The JSON that was provided to the POST request to confirm.
     """
     response = request.get_json()
     response_dict = convert_json_to_dict(response)
@@ -85,8 +84,9 @@ def set_allergies():
 def set_lab_work():
     """
     Writes the provided Lab work data into the database for the patient
-    :param health_num: a 9-digit integer health number corresponding to patient
-    :param lab_work: a LabWork object containing the lab work data in question
+    Input: A JSON containing the following keys
+    patientID, testTypeID
+    :return: The JSON that was provided to the POST request to confirm.
     """
     response = request.get_json()
     response_dict = convert_json_to_dict(response)
@@ -99,8 +99,9 @@ def set_lab_work():
 def set_billing():
     """
     Writes the billing information into the database for the given patient
-    :param health_num: a patient's health number
-    :param billing_code: a String representing patient's billing code.
+    Input: A JSON containing the following keys
+    patientID, medicalSecretaryID, billingCode
+    :return: The JSON that was provided to the POST request to confirm.
     """
     response = request.get_json()
     response_dict = convert_json_to_dict(response)
@@ -112,9 +113,10 @@ def set_billing():
 @app.route('/post/append_note', methods=['POST'])
 def append_note():
     """
-    append a note to a patients profile in the database
-    :param health_num: the health number of the patient in question
-    :param note: a Note object to be inserted
+    Append a note to a patients profile in the database
+    Input: A JSON containing the following keys
+    patientID, author, body
+    :return: The JSON that was provided to the POST request to confirm.
     """
     response = request.get_json()
     response_dict = convert_json_to_dict(response)
@@ -126,10 +128,10 @@ def append_note():
 @app.route('/post/create_patient', methods=['POST'])
 def create_patient_profile():
     """
-    create a patient profile and pass it on to the database
-    :param health_num: patient's health number
-    :param full_name: FullName object representing new patient's name
-    :param demographics: demographics object containing new patient's demographics
+    Add a patient profile to the database.
+    Input: A JSON containing the following keys
+    federalHealthID, provinceID, name, genderID, dateOfBirth, age, temp, address, familyHistory, medicalConditions
+    :return: The JSON that was provided to the POST request to confirm.
     """
     response = request.get_json()
     response_dict = convert_json_to_dict(response)
@@ -143,28 +145,90 @@ def create_patient_profile():
 @app.route('/get/patient/<health_num>', methods=['GET'])
 def get_patient(health_num):
     """
-    retrieve a patient object from the database given their health number
+    Retrieve patient demographics from the database given their health number.
     :param health_num: patient's health number
-    :return: PatientProfile object
+    :return: Patient profile JSON
     """
     return DatabaseController.get_patient_demographics(db_connection, health_num)
+
+
+@app.route('/get/patient_by_id/<patient_id>', methods=['GET'])
+def get_patient_by_id(patient_id):
+    """
+    Retrieve patient demographics from the database given their patient ID.
+    :param patient_id: patient's health number
+    :return: Patient profile JSON
+    """
+    return DatabaseController.get_patient_demographics_by_id(db_connection, patient_id)
+
+
+@app.route('/get/patient_notes/<patient_id>', methods=['GET'])
+def get_patient_notes(patient_id):
+    """
+    Retrieve patient notes from the database given the patientID.
+    :param patient_id: patient's health number
+    :return: Patient notes JSON
+    """
+    return DatabaseController.get_patient_notes(db_connection, patient_id)
+
+
+@app.route('/get/patient_billing/<patient_id>', methods=['GET'])
+def get_patient_billing(patient_id):
+    """
+    Retrieve patient billing from the database given the patientID.
+    :param patient_id: patient's health number
+    :return: Patient billing JSON
+    """
+    return DatabaseController.get_billing(db_connection, patient_id)
+
+
+@app.route('/get/patient_medication/<patient_id>', methods=['GET'])
+def get_patient_medication(patient_id):
+    """
+    Retrieve patient medication from the database given the patientID.
+    :param patient_id: patient's health number
+    :return: Patient medication JSON
+    """
+    return DatabaseController.get_medications(db_connection, patient_id)
+
+
+@app.route('/get/patient_allergies/<patient_id>', methods=['GET'])
+def get_patient_allergies(patient_id):
+    """
+    Retrieve patient allergies from the database given the patientID.
+    :param patient_id: patient's health number
+    :return: Patient allergies JSON
+    """
+    return DatabaseController.get_allergies(db_connection, patient_id)
+
 
 # == Test ==
 
 
 @app.route('/test/flask_get_test/<get_id>', methods=["GET"])
 def flask_get_test(get_id):
+    """
+    A test URL to see if the server is running GET properly.
+    :param get_id: An integer.
+    :return: The integer as a string with 42 appended to the end.
+    """
     print(get_id)
     return get_id + "42"
 
 
 @app.route('/test/flask_post_test', methods=["POST"])
 def flask_post_test():
+    """
+    A test URL to see if the server is running POST properly.
+    Input: A JSON.
+    :return: The JSON received.
+    """
     response = request.get_json()
     print_response_json(response)
     return response
 
 # == Flask Helpers ==
+
 
 @app.after_request
 def add_headers(response):
@@ -174,6 +238,7 @@ def add_headers(response):
 
 
 # === Utility ===
+
 
 def convert_json_to_dict(json_to_convert):
     json_as_str = json.dumps(json_to_convert)
@@ -187,6 +252,7 @@ def print_response_json(json_to_print):
 
 
 # === Main ===
+
 
 if __name__ == '__main__':
     # app.run()

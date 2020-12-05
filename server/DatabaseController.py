@@ -24,12 +24,94 @@ def get_patient_demographics(conn, health_number):
         return False
 
 
+def get_patient_demographics_by_id(conn, patient_id):
+    """
+    Returns all demographics information relating to a patientID.
+    :param conn: Database connection.
+    :param patient_id: PatientID number of the patient.
+    :return: A JSON containing all the information.
+    """
+    conn.row_factory = DatabaseConnection.sq.Row
+    cur = conn.cursor()
+    cur.execute("SELECT * FROM Patient WHERE patientID=?", (patient_id,))
+
+    try:
+        row = dict(cur.fetchone())
+        return row
+    except TypeError:
+        return False
+
+
+def get_patient_notes(conn, patient_id):
+    """
+    Returns all notes relating to a patient_id
+    :param conn: Database connection.
+    :param patient_id: PatientID number of the patient.
+    :return: A JSON containing all the notes.
+    """
+    conn.row_factory = DatabaseConnection.sq.Row
+    cur = conn.cursor()
+    cur.execute("SELECT * FROM Note WHERE patientID=?", (patient_id,))
+
+    rows = [dict(row) for row in cur.fetchall()]
+    json_rows = json.dumps(rows)
+    return json_rows
+
+
+def get_billing(conn, patient_id):
+    """
+    Returns all billing relating to a patient_id
+    :param conn: Database connection.
+    :param patient_id: PatientID number of the patient.
+    :return: A JSON containing all the billing.
+    """
+    conn.row_factory = DatabaseConnection.sq.Row
+    cur = conn.cursor()
+    cur.execute("SELECT * FROM Billing WHERE patientID=?", (patient_id,))
+
+    rows = [dict(row) for row in cur.fetchall()]
+    json_rows = json.dumps(rows)
+    return json_rows
+
+
+def get_medications(conn, patient_id):
+    """
+    Returns all medication relating to the patient_id
+    :param conn: Database connection.
+    :param patient_id: PatientID number of the patient.
+    :return: A JSON containing all the medication.
+    """
+    conn.row_factory = DatabaseConnection.sq.Row
+    cur = conn.cursor()
+    cur.execute("SELECT * FROM MedicationEntry WHERE patientID=?", (patient_id,))
+
+    rows = [dict(row) for row in cur.fetchall()]
+    json_rows = json.dumps(rows)
+    return json_rows
+
+
+def get_allergies(conn, patient_id):
+    """
+    Returns all allergies relating to the patient_id
+    :param conn: Database connection.
+    :param patient_id: PatientID number of the patient.
+    :return: A JSON containing all the medication.
+    """
+    conn.row_factory = DatabaseConnection.sq.Row
+    cur = conn.cursor()
+    cur.execute("SELECT * FROM Allergies WHERE patientID=?", (patient_id,))
+
+    rows = [dict(row) for row in cur.fetchall()]
+    print(rows)
+    json_rows = json.dumps(rows)
+    return json_rows
+
 # == Write ==
 
 
 def overwrite_patient(conn, response_dict):
     """
-
+    
     """
     patient_sql = (response_dict["federalHealthID"], response_dict["provinceID"], response_dict["name"],
                    response_dict["genderID"], response_dict["dateOfBirth"], response_dict["age"],
@@ -91,7 +173,7 @@ def set_allergies(conn, response_dict):
     conn.commit()
 
 
-def set_medications(conn, response_dict):
+def set_medication(conn, response_dict):
     """
 
     """
