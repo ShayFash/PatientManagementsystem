@@ -40,7 +40,7 @@ projects depends on. This can be done by running the following commands
 cd group3/src/react-components
 npm install
 ```
-This will install create-react-app which was used to bootstrap the product at v4.0.0.
+This will install [create-react-app](https://reactjs.org/docs/create-a-new-react-app.html) which was used to bootstrap the product at v4.0.0.
 Then, just to be safe you should run the following command to fix and vulnerabilities
 ```
 npm audit fix
@@ -56,7 +56,7 @@ cd group3/server
 pip install flask
 flask run
 ```
-This will start up the back end server and install Python Flask at 1.1.2
+This will start up the back end server and install [Python Flask](https://flask.palletsprojects.com/en/1.1.x/) at 1.1.2
 next, in the second tab/window run:
 ```
 cd group3/src/react-components
