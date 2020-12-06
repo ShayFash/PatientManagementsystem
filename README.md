@@ -40,6 +40,7 @@ projects depends on. This can be done by running the following commands
 cd group3/src/react-components
 npm install
 ```
+This will install create-react-app which was used to bootstrap the product at v4.0.0.
 Then, just to be safe you should run the following command to fix and vulnerabilities
 ```
 npm audit fix
@@ -52,9 +53,10 @@ layers
 In the project directory on the first command line, run the following commands:
 ```
 cd group3/server
+pip install flask
 flask run
 ```
-This will start up the back end server
+This will start up the back end server and install Python Flask at 1.1.2
 next, in the second tab/window run:
 ```
 cd group3/src/react-components
@@ -63,4 +65,4 @@ npm start
 This will launch the front end React app. After a few seconds the app will
 launch your browser and open up our website automatically.
 
-You are now free to interact with the forum!
+You are now free to interact with the website!
