@@ -68,3 +68,11 @@ In Pycharm:
       that the configuration is running pytest.
    
 ------------
+
+
+The medication API was meant to be a way for drug information to be pulled into the project, however it is not implemented.
+The API that was used https://rxnav.nlm.nih.gov/RxNormAPIs.html. The goal for this API was to fetch medication data, which would then be 
+put into a list that would attach in the patient profile. The file was supposed to be in an api_handler file in the flask project, 
+however it is not implement completely. Though if it is in the correct place pulling data does work, by typing in the drug you want
+it should come back with the brand name, the chemical name, the synonym and suppress information. One of which would be added to a list
+and would show up in the patient profile. 
