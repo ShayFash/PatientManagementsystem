@@ -2,6 +2,7 @@ import React, {useState, useEffect} from 'react';
 import {useParams} from 'react-router-dom';
 import NavBar from './NavBar';
 import Demographics from './Demographics';
+import ErrorMessage from './ErrorMessageContainer';
 
 function PatientProfileContainer() {
     const [name, setName] = useState("");
@@ -11,6 +12,7 @@ function PatientProfileContainer() {
     const [medicalCondition, setMedicalCondition] = useState("");
     const [age, setAge] = useState("");
     const [medications, setMedications] = useState("");
+    const [fetchError, setFetchError] = useState(false);
 
     let {num} = useParams();
 
@@ -24,16 +26,23 @@ function PatientProfileContainer() {
             setAllergies(data.allergies);
             setMedicalCondition(data.medicalCondition);
             setAge(data.age);
-            setMedications(data.medications)
-        }, error => console.log("Error"))
+            setMedications(data.medications);
+        }, () => {
+            setFetchError(true);
+        })
     }, [num]);
     return (
-        <div className="patientProfileContainer">
-            <Demographics name={name} address={address}
-                          dateOfBirth={dateOfBirth}
-                          allergies={allergies} medicalCondition = {medicalCondition}
-                          age={age} medications={medications}/>
-            <NavBar />
+        <div>    
+            {fetchError ? 
+                <ErrorMessage /> :
+                <div className="homeContainer">
+                    <Demographics name={name} address={address}
+                            dateOfBirth={dateOfBirth}
+                            allergies={allergies} medicalCondition = {medicalCondition}
+                            age={age} medications={medications}/>
+                    <NavBar />
+                </div>
+            }
         </div>
     );
 }

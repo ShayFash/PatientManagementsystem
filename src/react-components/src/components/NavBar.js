@@ -31,7 +31,7 @@ function NavBar(props) {
                 </button>
             </Link>
             <div className="horizontalDivider" style={{width: "50%"}}/>
-            <Link to='/login'>
+            <Link to='/'>
                 <button className="navBarButton" onClick={props.onClick}>
                     Logout
                 </button>

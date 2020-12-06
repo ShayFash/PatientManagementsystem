@@ -14,6 +14,7 @@ import HomeContainer from './components/HomeContainer';
 import {BloodWorkForm, ImagingForm, ECGForm} from './components/RequisitionFormContainer';
 import Prescription from './components/PrescriptionContainer';
 import PatientSearch from './components/PatientSearchContainer';
+import ErrorMessage from './components/ErrorMessageContainer';
 
 // class Logout extends React.Component {
 //     render() {
@@ -29,6 +30,7 @@ export default function App() {
                 <Route path="/" exact component={Login} />
                 {/* <Route path="/logout" component={Logout} /> */}
                 <Route path="/newnote" component={NewNote} />
+                <Route path="/patient/" exact component={ErrorMessage}></Route>
                 <Route path="/patient/:num" component={HomeContainer}></Route>
                 <Route path="/MDsearch" component={MDSearch}></Route>
                 <Route path="/reqform/bloodwork" component={BloodWorkForm}></Route>
