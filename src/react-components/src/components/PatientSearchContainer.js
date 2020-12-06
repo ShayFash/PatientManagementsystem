@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {Link} from 'react-router-dom';
 
 function PatientSearch(props) {
-    const [healthNumber, setHealthNumber] = useState(null);
+    const [healthNumber, setHealthNumber] = useState("");
     const [location, setLocation] = useState("");
 
     function changeNumber(event) {
