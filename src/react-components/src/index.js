@@ -29,15 +29,15 @@ export default function App() {
             <Switch>
                 <Route path="/" exact component={Login} />
                 {/* <Route path="/logout" component={Logout} /> */}
-                <Route path="/newnote" component={NewNote} />
+                <Route path="/patient/:num/newnote" exact component={NewNote} />
                 <Route path="/patient/" exact component={ErrorMessage}></Route>
-                <Route path="/patient/:num" component={HomeContainer}></Route>
-                <Route path="/MDsearch" component={MDSearch}></Route>
-                <Route path="/reqform/bloodwork" component={BloodWorkForm}></Route>
-                <Route path="/reqform/imaging" component={ImagingForm}></Route>
-                <Route path="/reqform/ecg" component={ECGForm}></Route>
-                <Route path="/prescription" component={Prescription}></Route>
-                <Route path="/patientsearch" component={PatientSearch}></Route>
+                <Route path="/patient/:num" exact component={HomeContainer}></Route>
+                <Route path="/patient/:num/MDsearch" exact component={MDSearch}></Route>
+                <Route path="/patient/:num/reqform/bloodwork" exact component={BloodWorkForm}></Route>
+                <Route path="/patient/:num/reqform/imaging" exact component={ImagingForm}></Route>
+                <Route path="/patient/:num/reqform/ecg" exact component={ECGForm}></Route>
+                <Route path="/patient/:num/prescription" exact component={Prescription}></Route>
+                <Route path="/patientsearch" exact component={PatientSearch}></Route>
             </Switch>
         </Router>
     );

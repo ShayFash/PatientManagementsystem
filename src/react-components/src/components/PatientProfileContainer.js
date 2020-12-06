@@ -16,6 +16,7 @@ function PatientProfileContainer() {
 
     let {num} = useParams();
 
+    // called as a componentDidUpdate substitute but only when num changes
     useEffect(() => {
         fetch(`http://127.0.0.1:5000/get/patient/${num}`)
         .then(response => response.json())
@@ -31,11 +32,19 @@ function PatientProfileContainer() {
             setFetchError(true);
         })
     }, [num]);
+
+    // called as a componentDidUnmount, reverts fetchError back to false
+    useEffect(() => {
+        return () => {
+            setFetchError(false);
+        }
+    })
+
     return (
         <div>    
             {fetchError ? 
                 <ErrorMessage /> :
-                <div className="homeContainer">
+                <div className="patientProfileContainer">
                     <Demographics name={name} address={address}
                             dateOfBirth={dateOfBirth}
                             allergies={allergies} medicalCondition = {medicalCondition}
