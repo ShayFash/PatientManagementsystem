@@ -20,7 +20,7 @@ function PatientSearch(props) {
     return (
         <div>
             <div className="horizontalDivider" style={{width: "90%"}} />
-            <Link to="/login">
+            <Link to="/">
                 <button className="navBarButton">Logout</button>
             </Link>
             <form className="homeContainer" style={{padding: "100px", marginBottom: "0px"}}>
@@ -47,7 +47,7 @@ function PatientSearch(props) {
                 value={healthNumber}
                 onChange={changeNumber}></input>
                 <br /><br />
-                <Link to="/">
+                <Link to={`/patient/${healthNumber}`}>
                     <button className="navBarButton">Search</button>
                 </Link>
             </form>

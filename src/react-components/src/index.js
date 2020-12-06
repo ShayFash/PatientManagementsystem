@@ -26,10 +26,10 @@ export default function App() {
     return (
         <Router>
             <Switch>
-                <Route path="/" exact component={HomeContainer} />
+                <Route path="/" exact component={Login} />
                 {/* <Route path="/logout" component={Logout} /> */}
                 <Route path="/newnote" component={NewNote} />
-                <Route path="/login" component={Login}></Route>
+                <Route path="/patient/:num" component={HomeContainer}></Route>
                 <Route path="/MDsearch" component={MDSearch}></Route>
                 <Route path="/reqform/bloodwork" component={BloodWorkForm}></Route>
                 <Route path="/reqform/imaging" component={ImagingForm}></Route>

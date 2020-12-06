@@ -1,4 +1,5 @@
 import React, {useState, useEffect} from 'react';
+import {useParams} from 'react-router-dom';
 import NavBar from './NavBar';
 import Demographics from './Demographics';
 
@@ -11,8 +12,10 @@ function PatientProfileContainer() {
     const [age, setAge] = useState("");
     const [medications, setMedications] = useState("");
 
+    let {num} = useParams();
+
     useEffect(() => {
-        fetch("http://127.0.0.1:5000/get/patient/0")
+        fetch(`http://127.0.0.1:5000/get/patient/${num}`)
         .then(response => response.json())
         .then(data => {
             setName(data.name);
@@ -23,7 +26,7 @@ function PatientProfileContainer() {
             setAge(data.age);
             setMedications(data.medications)
         }, error => console.log("Error"))
-    }, []);
+    }, [num]);
     return (
         <div className="patientProfileContainer">
             <Demographics name={name} address={address}
