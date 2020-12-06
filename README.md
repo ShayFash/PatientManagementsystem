@@ -8,26 +8,6 @@ Jeff Folster
 Johann Doell  
 Oluwaseun Fashoranti  
 
-To run test_proof_of_concept.py:
-
-Ensure Pytest is installed.
-
-In Pycharm:
-   1. Go to Settings/Preferences,
-      under Tools|Python Inegrated Tools|Testing
-      choose "Default test runner" to be pytest.
-   2. If run configuration not set
-      for test_proof_of_concept.py,
-      right-click the file and click
-      "create 'pytest in test_proof_of_concept.py'"
-   3. Right-click the directory "src", then
-      "Mark Directory As|Sources Root" to ensure that the
-      test file imports the module Names.py.
-   3. Run the file. If the file produces no output, check
-      that the configuration is running pytest.
-   
-------------
-
 ## How to run this project
 First you need to create a local version of our repo, on the command line cd
 into your favourite directory and run:
@@ -66,3 +46,25 @@ This will launch the front end React app. After a few seconds the app will
 launch your browser and open up our website automatically.
 
 You are now free to interact with the website!
+
+## How to run Python test files:
+
+For any file in directory "tests":
+
+Ensure Pytest is installed.
+
+In Pycharm:
+   1. Go to Settings/Preferences,
+      under Tools|Python Inegrated Tools|Testing
+      choose "Default test runner" to be pytest.
+   2. If run configuration not set
+      for file of the form test_filename.py,
+      right-click the file and click
+      "create 'pytest in test_filename.py'"
+   3. Right-click the directory "server", then
+      "Mark Directory As|Sources Root" to ensure that the
+      test file imports the module Names.py.
+   3. Run the file. If the file produces no output, check
+      that the configuration is running pytest.
+   
+------------
