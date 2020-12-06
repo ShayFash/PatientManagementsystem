@@ -69,6 +69,7 @@ In Pycharm:
    
 ------------
 
+### APIs
 
 The medication API was meant to be a way for drug information to be pulled into the project, however it is not implemented.
 The API that was used https://rxnav.nlm.nih.gov/RxNormAPIs.html. The goal for this API was to fetch medication data, which would then be 
