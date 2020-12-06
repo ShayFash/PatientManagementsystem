@@ -54,13 +54,13 @@ In the project directory on the first command line, run the following commands:
 cd group3/server
 flask run
 ```
-this will start up the back end server
+This will start up the back end server
 next, in the second tab/window run:
 ```
 cd group3/src/react-components
 npm start
 ```
-this will launch the front end React app. After a few seconds the app will
+This will launch the front end React app. After a few seconds the app will
 launch your browser and open up our website automatically.
 
 You are now free to interact with the forum!
