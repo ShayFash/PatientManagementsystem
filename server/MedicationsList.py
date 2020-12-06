@@ -32,6 +32,7 @@ class MedicationsList:
         """
         self.medications.clear()
 
+
 if __name__ == "__main__":
     ml = MedicationsList()
     pass
