@@ -44,7 +44,12 @@ function PatientProfileContainer() {
             {fetchError ? 
                 <ErrorMessage /> :
                 <div className="patientProfileContainer">
-                    {editing ? <EditDemographics setEditing={setEditing}/> :
+                    {editing ? 
+                    <EditDemographics name={name} address={address}
+                            dateOfBirth={dateOfBirth}
+                            allergies={allergies} medicalCondition = {medicalCondition}
+                            age={age} medications={medications}
+                            setEditing={setEditing}/> :
                     <Demographics name={name} address={address}
                             dateOfBirth={dateOfBirth}
                             allergies={allergies} medicalCondition = {medicalCondition}
