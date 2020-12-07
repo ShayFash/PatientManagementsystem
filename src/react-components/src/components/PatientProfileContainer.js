@@ -2,6 +2,7 @@ import React, {useState, useEffect} from 'react';
 import {useParams} from 'react-router-dom';
 import NavBar from './NavBar';
 import Demographics from './Demographics';
+import EditDemographics from './EditDemographics';
 import ErrorMessage from './ErrorMessageContainer';
 
 function PatientProfileContainer() {
@@ -12,6 +13,7 @@ function PatientProfileContainer() {
     const [medicalCondition, setMedicalCondition] = useState("");
     const [age, setAge] = useState("");
     const [medications, setMedications] = useState("");
+    const [editing, setEditing] = useState(false);
     const [fetchError, setFetchError] = useState(false);
 
     let {num} = useParams();
@@ -42,10 +44,13 @@ function PatientProfileContainer() {
             {fetchError ? 
                 <ErrorMessage /> :
                 <div className="patientProfileContainer">
+                    {editing ? <EditDemographics setEditing={setEditing}/> :
                     <Demographics name={name} address={address}
                             dateOfBirth={dateOfBirth}
                             allergies={allergies} medicalCondition = {medicalCondition}
-                            age={age} medications={medications}/>
+                            age={age} medications={medications}
+                            setEditing={setEditing}/>
+                    }
                     <NavBar />
                 </div>
             }

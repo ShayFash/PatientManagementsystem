@@ -74,7 +74,6 @@ code {
 
 /* Login Screen */
 .loginBox {
-    /* textteAlign: "center", marginTop: "20%", backgroundColor: "white", margin: "300px"} */
     text-align: center;
     margin-top: 20%;
     background-color: white;
@@ -83,4 +82,12 @@ code {
     height: 200px;
 }
 
-/* Search */
+/* Image (edit icon) */
+.image {
+    width: 50px;
+    height: 50px;
+}
+
+.image:hover {
+    cursor: pointer;
+}
