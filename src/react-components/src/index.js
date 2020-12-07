@@ -14,28 +14,22 @@ import HomeContainer from './components/HomeContainer';
 import {BloodWorkForm, ImagingForm, ECGForm} from './components/RequisitionFormContainer';
 import Prescription from './components/PrescriptionContainer';
 import PatientSearch from './components/PatientSearchContainer';
-
-// class Logout extends React.Component {
-//     render() {
-//         /* Temporary obviously */
-//         return <h1>Logged Out!</h1>
-//     }
-// }
+import ErrorMessage from './components/ErrorMessageContainer';
 
 export default function App() {
     return (
         <Router>
             <Switch>
-                <Route path="/" exact component={HomeContainer} />
-                {/* <Route path="/logout" component={Logout} /> */}
-                <Route path="/newnote" component={NewNote} />
-                <Route path="/login" component={Login}></Route>
-                <Route path="/MDsearch" component={MDSearch}></Route>
-                <Route path="/reqform/bloodwork" component={BloodWorkForm}></Route>
-                <Route path="/reqform/imaging" component={ImagingForm}></Route>
-                <Route path="/reqform/ecg" component={ECGForm}></Route>
-                <Route path="/prescription" component={Prescription}></Route>
-                <Route path="/patientsearch" component={PatientSearch}></Route>
+                <Route path="/" exact component={Login} />
+                <Route path="/patient/:num/newnote" exact component={NewNote} />
+                <Route path="/patient/" exact component={ErrorMessage}></Route>
+                <Route path="/patient/:num" exact component={HomeContainer}></Route>
+                <Route path="/patient/:num/MDsearch" exact component={MDSearch}></Route>
+                <Route path="/patient/:num/reqform/bloodwork" exact component={BloodWorkForm}></Route>
+                <Route path="/patient/:num/reqform/imaging" exact component={ImagingForm}></Route>
+                <Route path="/patient/:num/reqform/ecg" exact component={ECGForm}></Route>
+                <Route path="/patient/:num/prescription" exact component={Prescription}></Route>
+                <Route path="/patientsearch" exact component={PatientSearch}></Route>
             </Switch>
         </Router>
     );

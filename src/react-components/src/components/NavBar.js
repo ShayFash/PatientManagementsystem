@@ -1,14 +1,16 @@
 import React from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import { Link, useHistory, useParams } from 'react-router-dom';
 
 function NavBar(props) {
     let history = useHistory();
+    let {num} = useParams();
+
     function handleChange(event) {
-        history.push(`/reqform/${event.target.value}`)
+        history.push(`/patient/${num}/reqform/${event.target.value}`)
     }
     return (
         <div className="navBar">
-            <Link to="/newnote">
+            <Link to={`/patient/${num}/newnote`}>
                 <button className="navBarButton" onClick={props.onClick}>
                     New Note
                 </button>
@@ -20,18 +22,18 @@ function NavBar(props) {
                 <option value="ecg">ECG</option>
             </select>
 
-            <Link to="/MDsearch">
+            <Link to={`/patient/${num}/MDsearch`}>
                 <button className="navBarButton" onClick={props.onClick}>
                     MD Search
                 </button>
             </Link>
-            <Link to="/prescription">
+            <Link to={`/patient/${num}/prescription`}>
                 <button className="navBarButton" onClick={props.onClick}>
                     Prescription
                 </button>
             </Link>
             <div className="horizontalDivider" style={{width: "50%"}}/>
-            <Link to='/login'>
+            <Link to='/'>
                 <button className="navBarButton" onClick={props.onClick}>
                     Logout
                 </button>
@@ -39,42 +41,5 @@ function NavBar(props) {
         </div>
     )
 }
-
-
-
-// class NavBar extends React.Component {
-//     render() {
-//         return (
-//             <div className="navBar">
-//                 <Link to="/newnote">
-//                     <button className="navBarButton" onClick={this.props.onClick}>
-//                         New Note
-//                     </button>
-//                 </Link>
-//                 <Link>
-//                     <button className="navBarButton" onClick={this.props.onClick}>
-//                         Requisition Forms
-//                     </button>
-//                 </Link>
-//                 <Link to="/MDsearch">
-//                     <button className="navBarButton" onClick={this.props.onClick}>
-//                         MD Search
-//                     </button>
-//                 </Link>
-//                 <Link>
-//                     <button className="navBarButton" onClick={this.props.onClick}>
-//                         Prescription
-//                     </button>
-//                 </Link>
-//                 <div className="horizontalDivider" style={{width: "930px"}}/>
-//                 <Link to='/login'>
-//                     <button className="navBarButton" onClick={this.props.onClick}>
-//                         Logout
-//                     </button>
-//                 </Link>
-//             </div>
-//         );
-//     }
-// }
 
 export default NavBar;
