@@ -16,19 +16,11 @@ import Prescription from './components/PrescriptionContainer';
 import PatientSearch from './components/PatientSearchContainer';
 import ErrorMessage from './components/ErrorMessageContainer';
 
-// class Logout extends React.Component {
-//     render() {
-//         /* Temporary obviously */
-//         return <h1>Logged Out!</h1>
-//     }
-// }
-
 export default function App() {
     return (
         <Router>
             <Switch>
                 <Route path="/" exact component={Login} />
-                {/* <Route path="/logout" component={Logout} /> */}
                 <Route path="/patient/:num/newnote" exact component={NewNote} />
                 <Route path="/patient/" exact component={ErrorMessage}></Route>
                 <Route path="/patient/:num" exact component={HomeContainer}></Route>

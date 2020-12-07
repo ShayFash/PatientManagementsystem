@@ -32,7 +32,6 @@ function PatientProfileContainer(props) {
     // called as a componentDidUpdate substitute but only when num changes
     // called as a componentDidUnmount, reverts fetchError back to false
     useEffect(() => {
-        console.log("Fetched");
         fetch(`http://localhost:5000/get/patient/${num}`)
         .then(response => response.json())
         .then(data => {

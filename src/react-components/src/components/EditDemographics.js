@@ -13,24 +13,6 @@ function EditDemographics(props) {
     const [editAge, setEditAge] = useState(props.age);
     const [editMedications, setEditMedications] = useState(props.medications);
 
-    // useEffect(() => {
-    //     return () => {
-    //         const data = {
-    //             federalHealthID: props.federalHealthID,
-    //             provinceID: props.provinceID,
-    //             name: editName,
-    //             genderID: props.genderID,
-    //             dateOfBirth: editDOB,
-    //             age: editAge,
-    //             temp: props.temp,
-    //             address: editAddress,
-    //             familyHistory: editFamilyHistory,
-    //             medicalConditions: editCondition,
-    //         }
-    //         console.log(data);
-    //     }
-    // }, []);
-
     function handleChange(event) {
         const {value} = event.target;
         switch(event.target.name) {
@@ -77,8 +59,7 @@ function EditDemographics(props) {
             familyHistory: editFamilyHistory,
             medicalConditions: editCondition,
         }
-        console.log(data);
-        // event.preventDefault();
+        
         await fetch("http://localhost:5000/post/create_patient", {
             method: 'POST',
             headers: {
