@@ -15,7 +15,7 @@ function Demographics(props) {
             <p>Address: {props.address}</p>
             <p>DOB: {props.dateOfBirth}</p>
             <p>Allergies: {props.allergies}</p>
-            {/* <p>Family History: {props.familyHistory}</p> */}
+            <p>Family History: {props.familyHistory}</p>
             <p>Medical Condition: {props.medicalCondition}</p>
             <p>Age: {props.age}</p>
             {/* <p>Height:</p>
