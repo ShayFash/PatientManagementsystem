@@ -5,6 +5,7 @@ function Demographics(props) {
     return (
         <div className="demographics">
             <div>
+                <img src={imageName.default} alt="require function fails" style={{width: "50px", height: "50px", textAlign:"right"}}/>
                 {/* I believe we're getting rid of
                 height, weight and family physician */}
                 <p>Name: {props.name}</p>
@@ -18,9 +19,6 @@ function Demographics(props) {
                 <p>Weight:</p> */}
                 <p>Medications: {props.medications}</p>
                 {/* <p>Family Physician:</p> */}
-            </div>
-            <div>
-                <img src={imageName.default} alt="require function fails" style={{width: "50px", height: "50px"}}/>
             </div>
         </div>
     );

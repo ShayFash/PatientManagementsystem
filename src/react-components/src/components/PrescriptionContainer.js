@@ -1,8 +1,9 @@
 import React from 'react';
-import {Link} from 'react-router-dom';
+import {Link, useParams} from 'react-router-dom';
 import PatientProfileContainer from './PatientProfileContainer';
 
 function Prescription() {
+    let {num} = useParams();
     return (
         <div className="homeContainer">
             <PatientProfileContainer/>
@@ -14,7 +15,7 @@ function Prescription() {
                 </input>
                 <br/>
                 <div className="horizontalDivider" style={{width: "50%"}}/>
-                <Link to="/">
+                <Link to={`/patient/${num}`}>
                     <button className="navBarButton"
                     style={{marginTop: "5%"}} 
                     >Request</button>

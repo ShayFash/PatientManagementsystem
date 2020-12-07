@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import PatientProfileContainer from './PatientProfileContainer';
 
 function MDSearch(props) {
@@ -7,6 +7,7 @@ function MDSearch(props) {
     const [doctor, setDoctor] = useState("");
     const [specialtySelected, setSpecialtySelected] = useState(false);
     const [doctorSelected, setDoctorSelected] = useState(false);
+
     // need to change to get selected instead of checking if it was selected
     if (doctorSelected) {
         return <RequestForm doctorName={doctor} doctorSpecialty={specialty}/>
@@ -83,6 +84,7 @@ function DoctorList(props) {
 }
 
 function RequestForm(props) {
+    let {num} = useParams();
     return (
         <div className="homeContainer">
             <PatientProfileContainer />
@@ -97,7 +99,7 @@ function RequestForm(props) {
                 </textarea>
                 <br />
                 <div className="horizontalDivider" style={{width: "55%"}}/>
-                <Link to="/">
+                <Link to={`/patient/${num}`}>
                     <button className="navBarButton"
                     style={{marginTop: "5px"}} 
                     >Request</button>

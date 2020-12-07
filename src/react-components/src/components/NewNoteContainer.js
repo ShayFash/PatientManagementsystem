@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import PatientProfileContainer from './PatientProfileContainer';
 
 function NewNote(props) {
     const [noteText, setNoteText] = useState("");
     const [diagnosisText, setDiagnosisText] = useState("");
+    let {num} = useParams();
 
     function changeNote(event) {
         const {value} = event.target;
@@ -33,7 +34,7 @@ function NewNote(props) {
                 </input>
                 <div className="horizontalDivider" style={{width: "450px"}}/>
                 <br/>
-                <Link to="/">
+                <Link to={`/patient/${num}`}>
                     <button className="navBarButton"
                     style={{marginTop: "5px"}} 
                     >Post</button>
